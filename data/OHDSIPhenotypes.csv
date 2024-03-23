@@ -1,0 +1,428 @@
+,cohortId,cohortName
+0,19,[P] Acute Typical Pneumonia
+1,20,[P] Bronchitis or Bronchiolitis
+2,21,[P] Acute respiratory distress syndrome (ARDS) or Acute Respiratory Failure
+3,26,[P] Asthma or Chronic obstructive pulmonary disease (COPD)
+4,27,[P] Asthma without COPD
+5,28,[P] Chronic obstructive pulmonary disease (COPD) without asthma
+6,29,[W] Autoimmune condition (FP)
+7,30,[P] Tuberculosis
+8,31,[P] Malignant neoplasm excluding non-melanoma skin cancer
+9,32,[P] Obesity
+10,33,[P] Dementia
+11,34,[P] Hypertensive disorder or hypertensive complications
+12,35,[W] Chronic kidney disease (FP)
+13,36,[P] Human immunodeficiency virus (not HIV2) infection
+14,37,"[P] Hepatitis C infection, carrier status or antibody positivity"
+15,38,[P] Heart disease
+16,39,[W] End stage renal disease (FP)
+17,40,[P] Diabetes Mellitus Type 2 or history of diabetes
+18,41,[W] Chronic kidney disease broad (FP)
+19,42,[W] End stage renal disease broad (FP)
+20,43,[P] Respiratory or pulmonary tuberculosis
+21,44,[P][R] COVID-19 
+22,54,[P] Febrile seizure
+23,61,[P] Bradycardia or heart block with inpatient admission
+24,62,[P][R] Seizure related finding 
+25,63,"Transverse myelitis or symptoms indexed on symptoms or diagnosis (1Ps, 0Era, 365W)"
+26,65,[W] Acute pancreatitis with inpatient admission
+27,66,[W] Acute renal failure with inpatient admission
+28,67,[W] Hepatic failure with inpatient admission
+29,68,[W] Heart failure with inpatient admission
+30,69,[W] Angioedema with inpatient admission
+31,70,[P] Stroke (ischemic or hemorrhagic) with inpatient admission
+32,71,[P] Acute myocardial infarction with inpatient admission
+33,72,[P] Influenza diagnosis or positive test result
+34,74,[P] Hemorrhagic stroke (intracerebral bleeding) with inpatient admission
+35,75,[P] Ischemic stroke with inpatient admission
+36,76,[P] Transient ischemic attack with inpatient admission
+37,77,[P] Gastrointestinal bleeding with inpatient admission
+38,78,[P] Cardiac arrhythmia with inpatient admission
+39,95,[P] Delirium
+40,100,[P][R] Alzheimer's disease
+41,119,"Systemic lupus erythematosus indexed on signs, symptoms, treatment, or diagnosis (FP)"
+42,134,[P] Attention Deficit Hyperactivity Disorder indexed on diagnosis or treatment
+43,142,[P] Earliest of ST elevated Myocardial infarction or Acute MI with ST elevation
+44,192,"[P] Skin, Nasal or oral mucosal bleeding events often seen during thrombocytopenia"
+45,193,[P] Jaundice or Itching
+46,194,[P] Encephalopathy or its presentations
+47,195,[P] Primary or malignant urothelial bladder cancer
+48,196,[P] Rheumatoid arthritis or complications
+49,197,[P] Coronary Artery Disease from vessel disease to ischemic injury
+50,198,[P] Crohns disease or its complication
+51,199,[P] Major Depressive Disorder
+52,200,[P] Psoriasis of skin
+53,201,[P] Ulcerative colitis or complications
+54,207,[P] Acquired Pure Red Cell Aplasia
+55,208,[P] Febrile Neutropenia or Neutropenic Fever
+56,209,"[P] Hemolytic Anemia Extra corpuscular ex hgpathy, memb defect, g6pd"
+57,210,"[P] Hemolytic Anemia Extra corpuscular ex hgpathy, memb defect"
+58,211,"[P] Pancytopenia, Acquired"
+59,213,"Acquired Neutropenia or unspecified leukopenia (21Pe, 365Era)"
+60,214,[P] Acquired Isolated Neutropenia or unspecified leukopenia
+61,215,[P] Isolated Immune Thrombocytopenia
+62,216,[P] Isolated Immune Thrombocytopenia in absence of common thrombocytopenia causes
+63,217,[P] Thrombotic microangiopathy (TMA) or Microangiopathic hemolytic anemia (MAHA)
+64,218,[P] Rhabdomyolysis
+65,219,[P] Sudden Cardiac arrest or cardiac death
+66,220,[P] Angioedema
+67,221,[P] Anaphylaxis Non Environmental exposure related
+68,222,"[P] Stevens-Johnson syndrome, toxic epidermal necrolysis spectrum"
+69,223,[P] Posterior reversible encephalopathy syndrome PRES
+70,224,[P] Long QT Syndrome or QT prolonged (Acquired)
+71,225,[P] Drug-induced Lupus
+72,226,[P][R] Drug reaction with eosinophilia and systemic symptoms 
+73,227,[P] Severe Cutaneous Adverse Reaction SCAR (SJS+TEN+DRESS+EM)
+74,228,[P] Severe Cutaneous Adverse Reaction SCAR (SJS+TEN+DRESS)
+75,229,[P] Progressive multifocal leukoencephalopathy
+76,230,[P] Autoimmune hepatitis
+77,231,[P][R] Erythema multiforme 
+78,232,[P] Paresthesia
+79,233,[P] Hemorrhagic stroke
+80,234,"Appendicitis (1Pe, 180Era)"
+81,235,[P] Guillain Barre syndrome inpatient
+82,236,[P] Idiopathic Peripheral Neuropathy
+83,237,[P] Kawasaki disease
+84,238,[P][R] Optic neuritis 
+85,239,[P] Narcolepsy events
+86,240,[P] Muscle weakness or monoplegia
+87,241,[P][R] Urticaria 
+88,243,[P] Tinnitus
+89,245,[P] Hepatic Thrombosis
+90,246,[P] Portal vein thrombosis
+91,247,[P] Deep Vein Thrombosis DVT
+92,248,[P] Disseminated intravascular coagulation DIC in inpatient visit
+93,249,[P] Ischemic (Non-hemorrhagic) Stroke In Inpatient
+94,251,[P] Acute pancreatitis
+95,253,[P] Drug Induced Acute pancreatitis
+96,254,[P] Drug Resistant Epilepsy
+97,255,"[P] Alzheimer's disease (based on Imfeld, 2013)"
+98,256,[P] Facial Palsy lower motor neuron including Bells Palsy
+99,258,[P] Anaphylaxis or Anaphylactic shock events
+100,259,[P] Anaphylaxis all cause
+101,260,[P] ST elevated myocardial infarction with inpatient admission
+102,261,[P] Non ST elevated myocardial infarction with inpatient admission
+103,262,[P] Unstable Angina with inpatient admission
+104,263,[P] Unstable Angina OR NSTEMI with inpatient admission
+105,264,[P] Acute Hepatic Failure in persons with liver disease
+106,265,[P] Drug Induced Acute Hepatic Failure
+107,267,"[P] Acute Kidney Injury AKI, in persons with chronic kidney disease"
+108,268,"[P] Acute Kidney Injury AKI, in persons with NO chronic kidney disease"
+109,269,[D] Acute Kidney Injury AKI
+110,270,[P] Hemolytic Anemia
+111,271,[P] Hemolytic Anemia Intra corpuscular
+112,273,[P] Pathological Ventricular Tachycardia
+113,274,[P] Cardiac arrest or Pathological Ventricular tachycardia
+114,275,[P] Polymorphic Ventricular Tachycardia or Torsades de Pointes
+115,283,[P] Prostatitis
+116,284,[P] Myocarditis or Pericarditis
+117,285,[P] Myocarditis or Pericarditis Not due to infections
+118,287,[P] Transverse myelitis includes Myelitis Unspecified and neuromyelitis optica
+119,288,"[P] Type 2 Diabetes Mellitus indexed on diagnosis, treatment or lab results"
+120,289,[P] Presence Of Cardiac Arrhythmia
+121,290,"[P] Thyroiditis  wo other causes of hypothy, indexed on diagnosis or treatment"
+122,291,"[P] Gynecomastia, indexed on diagnosis, procedure or symptoms"
+123,292,[P] Hepatic Failure
+124,293,[P] Acute Hepatic Injury with no chronic hepatic failure
+125,294,[P] Acute Hepatic Injury with no pre-existing liver disease
+126,295,[P] Acute Hepatic Failure in persons with no pre-existing liver disease
+127,296,"Transverse myelitis or symptoms indexed on symptoms or diagnosis (180Pe, 180Era)"
+128,298,[P] Urinary bleed events in persons without renal glomerular disease
+129,299,[P] Acute gastrointestinal bleeding or perforation events
+130,300,[P] Heavy menstrual bleeding (menorrhagia) events
+131,304,Neurofibromatosis type 1 (FP)
+132,305,Neurofibromatosis type 1 without Type 2 (FP)
+133,306,Optical pathway glioma and neurofibromatosis (FP)
+134,307,Optical pathway glioma or non mal neoplasm of optic nerve w nf
+135,318,[P] All events of Acute Hepatic Failure in persons without chronic hepatic failure
+136,327,[P][R] Pharyngitis 
+137,329,[P] Pneumonitis and lung infections
+138,331,[P] Encephalopathy
+139,333,[P] Alcohol Use Disorder
+140,334,[P] Asthma
+141,335,[P] Anxiety or Fear
+142,339,[P][R] Low blood pressure 
+143,340,"[P] Hives, Erythema, Eruption, Urticaria"
+144,342,[P][R] Urinary incontinence 
+145,343,[P] Fecal Incontinence
+146,348,[P][R] Blood in urine 
+147,349,[P] Lower gastrointestinal bleeding events
+148,350,[P][R] Hemoptysis 
+149,351,[P] Nasal Polyp present
+150,352,[P][R] Inflamed tonsils 
+151,353,[P][R] Conjunctivitis 
+152,354,[P] Nasal Congestion or Rhinitis or Common Cold
+153,355,[P] Laryngitis
+154,356,[P] Epistaxis
+155,357,[P][R] Pulmonary edema 
+156,358,[P] Acute Respiratory Failure among persons with no chronic respiratory failure
+157,359,[P] Acute Respiratory Failure
+158,360,[P] Pleural Effusion
+159,361,[P][R] Restless legs 
+160,362,[P] Acute Kidney Injury AKI
+161,363,[P][R] Joint stiffness 
+162,364,[P][R] Sleep disorder 
+163,365,[P] Dysuria
+164,366,[P] Streptococcal throat infection
+165,367,[P] Allergic Rhinitis
+166,368,[P][R] Sinusitis 
+167,372,[P] Otitis media
+168,373,[P] Iron deficiency Anemia
+169,374,[P][R] Drug dependence 
+170,375,[P] Gall stone disorder
+171,379,[P][R] Ecchymosis
+172,380,[P][R] Jaundice 
+173,382,[P] Prurititc Rash
+174,383,[P] Eczematous Atopic Dermatitis and non hyperkeratotic dermatosis
+175,384,[P][R] Contact dermatitis 
+176,385,[P][R] Intertrigo 
+177,386,[P][R] Seborrheic dermatitis 
+178,387,[P][R] Photodermatitis 
+179,388,[P][R] Peripheral neuritis 
+180,389,[P] Peripheral Neuropathy or Neuritits
+181,391,[P] Hearing Loss
+182,392,[P] Otalgia or Otitis
+183,394,[P] Gastroesophageal reflux disease
+184,396,[P][R] Osteoarthritis 
+185,397,[P][R] Hyperplasia of prostate 
+186,398,[P] Bladder Outflow Obstruction
+187,399,[P][R] Urolithiasis 
+188,400,[P][R] Malignant tumor of prostate 
+189,401,[P] Uterine Fibroids or benign uterine tumors
+190,402,[P] Ventilatory assist for respiratory findings with Acute Respiratory Failure
+191,403,[P] Acute Respiratory Failure in inpatient or Emergency room
+192,404,"[P] Ventricular Tachycardia, in an Inpatient or Emergency room setting"
+193,405,[P] Atrial Fibrillation or Flutter
+194,406,[P][R] Intellectual disability 
+195,407,[P][R] Hemorrhoids 
+196,410,[P] Acute Urinary tract infections UTI
+197,411,[P] Sepsis or Septic Shock
+198,412,"Transverse myelitis indexed on diagnosis (1Ps, 0Era, 365W)"
+199,445,[P][R] Hypoglycemia
+200,446,[P][R] Eosinophilic esophagitis
+201,447,[P][R] Esophagitis
+202,451,[P][R] Myasthenia gravis
+203,453,[P][R] Osteoarthritis
+204,454,[P][R] Dermatomyositis
+205,456,[P][R] Osteoporosis
+206,457,[P][R] Rheumatoid arthritis
+207,458,[P][R] Ulcerative colitis
+208,459,[P][R] Urinary tract infectious disease
+209,460,[P][R] Psoriasis with arthropathy
+210,461,[P][R] Erythema multiforme
+211,462,[P][R] Lichen planus
+212,463,[P][R] Sepsis
+213,464,[P][R] Myelofibrosis
+214,465,[P][R] Thyroiditis
+215,466,[P][R] Atopic dermatitis
+216,467,[P][R] Systemic sclerosis
+217,468,[P][R] Pityriasis rubra pilaris
+218,469,[P][R] Jaundice
+219,470,"[P][R] Chronic lymphoid leukemia, disease"
+220,471,[P][R] Vitiligo
+221,472,[P][R] Myelodysplastic syndrome (clinical)
+222,473,[P][R] Acute transverse myelitis
+223,474,[P][R] Pemphigoid
+224,475,[P][R] Psoriasis
+225,476,"[P][R] Acute myeloid leukemia, disease"
+226,477,[P][R] Hypothyroidism
+227,478,[P][R] Malignant melanoma of skin
+228,479,[P][R] Chilblains
+229,480,[P][R] Alopecia areata
+230,481,[P][R] Renal failure syndrome
+231,482,[P][R] Gastrointestinal hemorrhage
+232,483,[P][R] Biliary cirrhosis
+233,484,[P][R] End-stage renal disease
+234,487,[P][R] Celiac disease
+235,489,[P][R] Acute renal failure syndrome
+236,490,[P][R] Viral hepatitis C
+237,491,[P][R] Malignant tumor of urinary bladder
+238,492,[P][R] Cardiogenic shock
+239,493,[P][R] Malignant tumor of cervix
+240,494,[P][R] Primary malignant neoplasm of kidney
+241,495,[P][R] Acute pancreatitis
+242,497,[P][R] Autoimmune hepatitis
+243,498,[P][R] Toxic shock syndrome
+244,499,[P][R] Type 1 diabetes mellitus
+245,500,[P][R] Gastritis
+246,501,[P][R] Crohn's disease
+247,502,[P][R] Kidney stone
+248,503,[P][R] Type 2 diabetes mellitus
+249,504,[P][R] Sjögren's syndrome
+250,506,[P][R] Chronic obstructive lung disease
+251,507,[P][R] Pneumonia
+252,508,[P][R] Allergic rhinitis
+253,509,[P][R] Systemic lupus erythematosus
+254,510,[P][R] Acute myocardial infarction
+255,512,[P][R] Thromboangiitis obliterans
+256,513,[P][R] Atrial fibrillation
+257,514,[P][R] Granulomatosis with polyangiitis
+258,515,[P][R] Sleep apnea
+259,516,[P][R] Thrombotic microangiopathy
+260,517,[P][R] Acute febrile mucocutaneous lymph node syndrome
+261,518,[P][R] Myocarditis
+262,519,[P][R] Heart failure
+263,520,[P][R] Hypertensive disorder
+264,521,[P][R] Asthma
+265,522,[P][R] Coronary arteriosclerosis
+266,523,[P][R] Arteriosclerotic vascular disease
+267,524,[P][R] Migraine
+268,525,[P][R] Gastroesophageal reflux disease
+269,526,[P][R] Orthostatic hypotension
+270,527,[P][R] Acute respiratory failure
+271,528,[P][R] Polyarteritis nodosa
+272,529,[P][R] Cardiac arrest
+273,530,[P][R] Peripheral vascular disease
+274,531,[P][R] Angina pectoris
+275,532,[P][R] Heart disease
+276,533,[P][R] Otitis media
+277,534,[P][R] Transient cerebral ischemia
+278,535,[P][R] Acute disseminated encephalomyelitis
+279,536,[P][R] Age related macular degeneration
+280,537,[P][R] Sensorineural hearing loss
+281,538,[P][R] Paralytic syndrome
+282,539,[P][R] Multiple sclerosis
+283,540,[P][R] Optic neuritis
+284,541,[P][R] Idiopathic peripheral neuropathy
+285,542,[P][R] Cerebral hemorrhage
+286,543,[P][R] Seizure
+287,544,[P][R] Encephalitis
+288,546,[P][R] Retinal detachment
+289,547,[P][R] Retinal disorder
+290,549,[P][R] Epilepsy
+291,550,[P][R] Chronic inflammatory demyelinating polyradiculoneuropathy
+292,551,[P][R] Microcephalus
+293,552,[P][R] Parkinson's disease
+294,553,[P][R] Cerebrovascular accident
+295,554,[P][R] Cerebrovascular disease
+296,555,[P][R] Blood coagulation disorder
+297,556,[P][R] Amyloidosis
+298,557,[P][R] Angioedema
+299,558,[P][R] Hyperlipidemia
+300,559,[P][R] Thrombocytopenic disorder
+301,560,[P][R] Pancytopenia
+302,561,[P][R] Myasthenic syndrome due to another disorder
+303,562,[P][R] Edema
+304,563,[P][R] Obesity
+305,564,[P][R] Hidradenitis
+306,565,[P][R] Tuberculosis
+307,566,[P][R] Kaposi's sarcoma (clinical)
+308,567,[P][R] B-cell lymphoma (clinical)
+309,568,[P][R] Hyperkalemia
+310,569,[P][R] Systemic inflammatory response syndrome
+311,570,[P][R] Leukopenia
+312,571,[P][R] Schizophrenia
+313,572,[P][R] Psychotic disorder
+314,573,[P][R] Chronic pain
+315,574,[P][R] Narcolepsy
+316,575,[P][R] Behcet's syndrome
+317,576,[P][R] Bipolar disorder
+318,577,[P][R] Posttraumatic stress disorder
+319,578,[P][R] Insomnia
+320,579,[P][R] Ankylosing spondylitis
+321,580,[P][R] Respiratory syncytial virus infection
+322,581,[P][R] Multiple myeloma
+323,583,[P][R] Glaucoma
+324,585,[P][R] Hypokalemia
+325,586,[P][R] Opioid dependence
+326,587,[P][R] Opioid abuse
+327,588,[P][R] Attention deficit hyperactivity disorder
+328,589,[P][R] Pre-eclampsia
+329,590,[P][R] Human immunodeficiency virus infection
+330,591,[P][R] Autism spectrum disorder
+331,592,[P][R] Anemia
+332,593,[P][R] Paralysis
+333,594,[P][R] Depressive disorder
+334,595,[P][R] Pulmonary embolism
+335,596,[P][R] Gout
+336,597,[P][R] Takayasu's disease
+337,598,[P][R] Methicillin resistant Staphylococcus aureus infection
+338,599,[P][R] Anaphylaxis
+339,600,[P][R] Open-angle glaucoma
+340,602,[P][R] Anxiety
+341,603,[P][R] Human papilloma virus infection
+342,604,[P][R] Cranial nerve disorder
+343,607,[P][R] Malignant tumor of stomach
+344,608,[P][R] Malignant neoplastic disease
+345,609,[P][R] Cerebral infarction
+346,610,[P][R] Eclampsia
+347,611,[P][R] Diabetic ketoacidosis
+348,612,[P][R] Acute tubular necrosis
+349,613,[P][R] Tachycardia
+350,614,[P][R] Venous thrombosis
+351,615,[P][R] Herpes simplex
+352,616,[P][R] Acute arthritis
+353,617,[P][R] Monoclonal gammopathy (clinical)
+354,618,[P][R] Pulmonary arterial hypertension
+355,619,[P][R] Gestational diabetes mellitus
+356,620,[P][R] Uveitis
+357,621,[P][R] Renal impairment
+358,622,[P][R] Non-Hodgkin's lymphoma (clinical)
+359,623,[P][R] Motor neuropathy with multiple conduction block
+360,624,[P][R] Primary sclerosing cholangitis
+361,625,[P][R] Pustular psoriasis
+362,626,[P][R] Cirrhosis of liver
+363,628,[P][R] Fisher's syndrome
+364,629,[P][R] Inflammatory bowel disease
+365,630,[P][R] Facial palsy
+366,632,[P][R] Antiphospholipid syndrome
+367,633,[P][R] Waldenström macroglobulinemia
+368,634,[P][R] Immunoglobulin A vasculitis
+369,635,[P][R] Ventricular tachycardia
+370,636,[P][R] Malignant tumor of breast
+371,637,[P][R] Peripheral ischemia
+372,638,[P][R] Neoplasm of thyroid gland
+373,639,[P][R] Deep venous thrombosis
+374,640,[P][R] Vasculitis
+375,641,[P][R] Pericarditis
+376,642,[P][R] Immune reconstitution syndrome
+377,643,[P][R] Follicular non-Hodgkin's lymphoma
+378,644,[P][R] Malignant tumor of prostate
+379,645,[P][R] Guillain-Barré syndrome
+380,646,[P][R] Bradycardia
+381,647,[P][R] Retinopathy due to diabetes mellitus
+382,648,[P][R] Malignant tumor of colon
+383,649,[P][R] Malignant tumor of esophagus
+384,650,[P][R] Malignant tumor of ovary
+385,651,[P][R] Dementia
+386,652,[P][R] Vasculitis of the skin
+387,654,[P][R] Ischemic heart disease
+388,655,[P][R] Aseptic meningitis
+389,657,[P][R] Paresthesia
+390,658,[P][R] Hepatic failure
+391,659,[P][R] Malignant neoplasm of liver
+392,660,[P][R] Juvenile rheumatoid arthritis
+393,661,[P][R] Respiratory failure
+394,662,[P][R] Diverticulitis of large intestine
+395,663,[P][R] Influenza
+396,665,[P][R] Suicidal thoughts
+397,666,[P][R] Type B viral hepatitis
+398,667,[P][R] Guttate psoriasis
+399,668,[P][R] SLE glomerulonephritis syndrome
+400,669,[P][R] Schizoaffective disorder
+401,670,[P][R] Temporal arteritis
+402,673,[P][R] Primary malignant neoplasm of respiratory tract
+403,674,[P][R] Degeneration of retina
+404,675,[P][R] Pulmonary hypertension
+405,676,[P][R] Microscopic polyarteritis nodosa
+406,677,[P][R] Preterm labor with preterm delivery
+407,678,[P][R] COVID-19
+408,679,[P][R] Takotsubo cardiomyopathy
+409,680,[P][R] Mantle cell lymphoma
+410,681,[P][R] Malignant neoplasm of anorectum
+411,682,[P][R] Marginal zone lymphoma
+412,683,[P][R] Antineutrophil cytoplasmic antibody positive vasculitis
+413,684,[P][R] Sensory disorder of smell and/or taste
+414,685,[P][R] Cardiac arrhythmia
+415,686,[P][R] Fracture of bone of hip region
+416,687,[P][R] Chronic kidney disease
+417,690,[P][R] Suicide
+418,691,Transverse myelitis or symptoms indexed on symptoms or diagnosis
+419,692,Transverse myelitis indexed on diagnosis
+420,693,Acquired Neutropenia or unspecified leukopenia
+421,694,Appendicitis during Inpatient visit
+422,695,[P][R] Optic nerve glioma
+423,696,[P][R] Neurofibromatosis type 2
+424,697,[P][R] Neurofibromatosis type 1
+425,698,[P][R] Neurofibromatosis syndrome
+426,699,[P][R] Major Depressive Disorder

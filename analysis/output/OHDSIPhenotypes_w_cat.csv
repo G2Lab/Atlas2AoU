@@ -1,0 +1,428 @@
+,cohortId,cohortName,Category
+0,19,[P] Acute Typical Pneumonia,Pulmonary/Respiratory Diseases
+1,20,[P] Bronchitis or Bronchiolitis,Pulmonary/Respiratory Diseases
+2,21,[P] Acute respiratory distress syndrome (ARDS) or Acute Respiratory Failure,Pulmonary/Respiratory Diseases
+3,26,[P] Asthma or Chronic obstructive pulmonary disease (COPD),Pulmonary/Respiratory Diseases
+4,27,[P] Asthma without COPD,Pulmonary/Respiratory Diseases
+5,28,[P] Chronic obstructive pulmonary disease (COPD) without asthma,Pulmonary/Respiratory Diseases
+6,29,[W] Autoimmune condition (FP),Pulmonary/Respiratory Diseases
+7,30,[P] Tuberculosis,Pulmonary/Respiratory Diseases
+8,31,[P] Malignant neoplasm excluding non-melanoma skin cancer,Oncology
+9,32,[P] Obesity,Pulmonary/Respiratory Diseases
+10,33,[P] Dementia,Neurology
+11,34,[P] Hypertensive disorder or hypertensive complications,Cardiology/Vascular Diseases
+12,35,[W] Chronic kidney disease (FP),Cardiology/Vascular Diseases
+13,36,[P] Human immunodeficiency virus (not HIV2) infection,Infections and Infectious Diseases
+14,37,"[P] Hepatitis C infection, carrier status or antibody positivity",Infections and Infectious Diseases
+15,38,[P] Heart disease,Cardiology/Vascular Diseases
+16,39,[W] End stage renal disease (FP),Miscellanea
+17,40,[P] Diabetes Mellitus Type 2 or history of diabetes,Metabolism and Nutrition
+18,41,[W] Chronic kidney disease broad (FP),Cardiology/Vascular Diseases
+19,42,[W] End stage renal disease broad (FP),Urology
+20,43,[P] Respiratory or pulmonary tuberculosis,Pulmonary/Respiratory Diseases
+21,44,[P][R] COVID-19 ,Infections and Infectious Diseases
+22,54,[P] Febrile seizure,Neurology
+23,61,[P] Bradycardia or heart block with inpatient admission,Cardiology/Vascular Diseases
+24,62,[P][R] Seizure related finding ,Neurology
+25,63,"Transverse myelitis or symptoms indexed on symptoms or diagnosis (1Ps, 0Era, 365W)",Pulmonary/Respiratory Diseases
+26,65,[W] Acute pancreatitis with inpatient admission,Gastroenterology
+27,66,[W] Acute renal failure with inpatient admission,Urology
+28,67,[W] Hepatic failure with inpatient admission,Neurology
+29,68,[W] Heart failure with inpatient admission,Cardiology/Vascular Diseases
+30,69,[W] Angioedema with inpatient admission,Pulmonary/Respiratory Diseases
+31,70,[P] Stroke (ischemic or hemorrhagic) with inpatient admission,Neurology
+32,71,[P] Acute myocardial infarction with inpatient admission,Cardiology/Vascular Diseases
+33,72,[P] Influenza diagnosis or positive test result,Pulmonary/Respiratory Diseases
+34,74,[P] Hemorrhagic stroke (intracerebral bleeding) with inpatient admission,Neurology
+35,75,[P] Ischemic stroke with inpatient admission,Neurology
+36,76,[P] Transient ischemic attack with inpatient admission,Cardiology/Vascular Diseases
+37,77,[P] Gastrointestinal bleeding with inpatient admission,Gastroenterology
+38,78,[P] Cardiac arrhythmia with inpatient admission,Cardiology/Vascular Diseases
+39,95,[P] Delirium,Neurology
+40,100,[P][R] Alzheimer's disease,Neurology
+41,119,"Systemic lupus erythematosus indexed on signs, symptoms, treatment, or diagnosis (FP)",Neurology
+42,134,[P] Attention Deficit Hyperactivity Disorder indexed on diagnosis or treatment,Psychiatry/Psychology
+43,142,[P] Earliest of ST elevated Myocardial infarction or Acute MI with ST elevation,Cardiology/Vascular Diseases
+44,192,"[P] Skin, Nasal or oral mucosal bleeding events often seen during thrombocytopenia",Pulmonary/Respiratory Diseases
+45,193,[P] Jaundice or Itching,Neurology
+46,194,[P] Encephalopathy or its presentations,Neurology
+47,195,[P] Primary or malignant urothelial bladder cancer,Oncology
+48,196,[P] Rheumatoid arthritis or complications,Neurology
+49,197,[P] Coronary Artery Disease from vessel disease to ischemic injury,Infections and Infectious Diseases
+50,198,[P] Crohns disease or its complication,Gastroenterology
+51,199,[P] Major Depressive Disorder,Psychiatry/Psychology
+52,200,[P] Psoriasis of skin,Immunology
+53,201,[P] Ulcerative colitis or complications,Gastroenterology
+54,207,[P] Acquired Pure Red Cell Aplasia,Infections and Infectious Diseases
+55,208,[P] Febrile Neutropenia or Neutropenic Fever,Pulmonary/Respiratory Diseases
+56,209,"[P] Hemolytic Anemia Extra corpuscular ex hgpathy, memb defect, g6pd",Infections and Infectious Diseases
+57,210,"[P] Hemolytic Anemia Extra corpuscular ex hgpathy, memb defect",Infections and Infectious Diseases
+58,211,"[P] Pancytopenia, Acquired",Infections and Infectious Diseases
+59,213,"Acquired Neutropenia or unspecified leukopenia (21Pe, 365Era)",Oncology
+60,214,[P] Acquired Isolated Neutropenia or unspecified leukopenia,Oncology
+61,215,[P] Isolated Immune Thrombocytopenia,Immunology
+62,216,[P] Isolated Immune Thrombocytopenia in absence of common thrombocytopenia causes,Pulmonary/Respiratory Diseases
+63,217,[P] Thrombotic microangiopathy (TMA) or Microangiopathic hemolytic anemia (MAHA),Pulmonary/Respiratory Diseases
+64,218,[P] Rhabdomyolysis,Trauma
+65,219,[P] Sudden Cardiac arrest or cardiac death,Pulmonary/Respiratory Diseases
+66,220,[P] Angioedema,Immunology
+67,221,[P] Anaphylaxis Non Environmental exposure related,Pulmonary/Respiratory Diseases
+68,222,"[P] Stevens-Johnson syndrome, toxic epidermal necrolysis spectrum",Dermatology
+69,223,[P] Posterior reversible encephalopathy syndrome PRES,Neurology
+70,224,[P] Long QT Syndrome or QT prolonged (Acquired),Pulmonary/Respiratory Diseases
+71,225,[P] Drug-induced Lupus,Immunology
+72,226,[P][R] Drug reaction with eosinophilia and systemic symptoms ,Pulmonary/Respiratory Diseases
+73,227,[P] Severe Cutaneous Adverse Reaction SCAR (SJS+TEN+DRESS+EM),Immunology
+74,228,[P] Severe Cutaneous Adverse Reaction SCAR (SJS+TEN+DRESS),Immunology
+75,229,[P] Progressive multifocal leukoencephalopathy,Infections and Infectious Diseases
+76,230,[P] Autoimmune hepatitis,Gastroenterology
+77,231,[P][R] Erythema multiforme ,Immunology
+78,232,[P] Paresthesia,Neurology
+79,233,[P] Hemorrhagic stroke,Pulmonary/Respiratory Diseases
+80,234,"Appendicitis (1Pe, 180Era)",Gastroenterology
+81,235,[P] Guillain Barre syndrome inpatient,Infections and Infectious Diseases
+82,236,[P] Idiopathic Peripheral Neuropathy,Neurology
+83,237,[P] Kawasaki disease,Cardiology/Vascular Diseases
+84,238,[P][R] Optic neuritis ,Neurology
+85,239,[P] Narcolepsy events,Sleep
+86,240,[P] Muscle weakness or monoplegia,Neurology
+87,241,[P][R] Urticaria ,Dermatology
+88,243,[P] Tinnitus,Otolaryngology
+89,245,[P] Hepatic Thrombosis,Gastroenterology
+90,246,[P] Portal vein thrombosis,Gastroenterology
+91,247,[P] Deep Vein Thrombosis DVT,Gastroenterology
+92,248,[P] Disseminated intravascular coagulation DIC in inpatient visit,Hematology
+93,249,[P] Ischemic (Non-hemorrhagic) Stroke In Inpatient,Neurology
+94,251,[P] Acute pancreatitis,Gastroenterology
+95,253,[P] Drug Induced Acute pancreatitis,Gastroenterology
+96,254,[P] Drug Resistant Epilepsy,Neurology
+97,255,"[P] Alzheimer's disease (based on Imfeld, 2013)",Neurology
+98,256,[P] Facial Palsy lower motor neuron including Bells Palsy,Pulmonary/Respiratory Diseases
+99,258,[P] Anaphylaxis or Anaphylactic shock events,Immunology
+100,259,[P] Anaphylaxis all cause,Immunology
+101,260,[P] ST elevated myocardial infarction with inpatient admission,Cardiology/Vascular Diseases
+102,261,[P] Non ST elevated myocardial infarction with inpatient admission,Cardiology/Vascular Diseases
+103,262,[P] Unstable Angina with inpatient admission,Neurology
+104,263,[P] Unstable Angina OR NSTEMI with inpatient admission,Neurology
+105,264,[P] Acute Hepatic Failure in persons with liver disease,Pulmonary/Respiratory Diseases
+106,265,[P] Drug Induced Acute Hepatic Failure,Neurology
+107,267,"[P] Acute Kidney Injury AKI, in persons with chronic kidney disease",Urology
+108,268,"[P] Acute Kidney Injury AKI, in persons with NO chronic kidney disease",Urology
+109,269,[D] Acute Kidney Injury AKI,Pulmonary/Respiratory Diseases
+110,270,[P] Hemolytic Anemia,Infections and Infectious Diseases
+111,271,[P] Hemolytic Anemia Intra corpuscular,Infections and Infectious Diseases
+112,273,[P] Pathological Ventricular Tachycardia,Cardiology/Vascular Diseases
+113,274,[P] Cardiac arrest or Pathological Ventricular tachycardia,Pulmonary/Respiratory Diseases
+114,275,[P] Polymorphic Ventricular Tachycardia or Torsades de Pointes,Cardiology/Vascular Diseases
+115,283,[P] Prostatitis,Pulmonary/Respiratory Diseases
+116,284,[P] Myocarditis or Pericarditis,Infections and Infectious Diseases
+117,285,[P] Myocarditis or Pericarditis Not due to infections,Infections and Infectious Diseases
+118,287,[P] Transverse myelitis includes Myelitis Unspecified and neuromyelitis optica,Neurology
+119,288,"[P] Type 2 Diabetes Mellitus indexed on diagnosis, treatment or lab results",Metabolism and Nutrition
+120,289,[P] Presence Of Cardiac Arrhythmia,Cardiology/Vascular Diseases
+121,290,"[P] Thyroiditis  wo other causes of hypothy, indexed on diagnosis or treatment",Immunology
+122,291,"[P] Gynecomastia, indexed on diagnosis, procedure or symptoms",Neurology
+123,292,[P] Hepatic Failure,Neurology
+124,293,[P] Acute Hepatic Injury with no chronic hepatic failure,Neurology
+125,294,[P] Acute Hepatic Injury with no pre-existing liver disease,Neurology
+126,295,[P] Acute Hepatic Failure in persons with no pre-existing liver disease,Neurology
+127,296,"Transverse myelitis or symptoms indexed on symptoms or diagnosis (180Pe, 180Era)",Neurology
+128,298,[P] Urinary bleed events in persons without renal glomerular disease,Pulmonary/Respiratory Diseases
+129,299,[P] Acute gastrointestinal bleeding or perforation events,Gastroenterology
+130,300,[P] Heavy menstrual bleeding (menorrhagia) events,Metabolism and Nutrition
+131,304,Neurofibromatosis type 1 (FP),Oncology
+132,305,Neurofibromatosis type 1 without Type 2 (FP),Oncology
+133,306,Optical pathway glioma and neurofibromatosis (FP),Oncology
+134,307,Optical pathway glioma or non mal neoplasm of optic nerve w nf,Oncology
+135,318,[P] All events of Acute Hepatic Failure in persons without chronic hepatic failure,Neurology
+136,327,[P][R] Pharyngitis ,Pulmonary/Respiratory Diseases
+137,329,[P] Pneumonitis and lung infections,Pulmonary/Respiratory Diseases
+138,331,[P] Encephalopathy,Neurology
+139,333,[P] Alcohol Use Disorder,Neurology
+140,334,[P] Asthma,Pulmonary/Respiratory Diseases
+141,335,[P] Anxiety or Fear,Psychiatry/Psychology
+142,339,[P][R] Low blood pressure ,Cardiology/Vascular Diseases
+143,340,"[P] Hives, Erythema, Eruption, Urticaria",Dermatology
+144,342,[P][R] Urinary incontinence ,Urology
+145,343,[P] Fecal Incontinence,Gastroenterology
+146,348,[P][R] Blood in urine ,Pulmonary/Respiratory Diseases
+147,349,[P] Lower gastrointestinal bleeding events,Gastroenterology
+148,350,[P][R] Hemoptysis ,Pulmonary/Respiratory Diseases
+149,351,[P] Nasal Polyp present,Pulmonary/Respiratory Diseases
+150,352,[P][R] Inflamed tonsils ,Pulmonary/Respiratory Diseases
+151,353,[P][R] Conjunctivitis ,Ophthalmology
+152,354,[P] Nasal Congestion or Rhinitis or Common Cold,Pulmonary/Respiratory Diseases
+153,355,[P] Laryngitis,Pulmonary/Respiratory Diseases
+154,356,[P] Epistaxis,Pulmonary/Respiratory Diseases
+155,357,[P][R] Pulmonary edema ,Pulmonary/Respiratory Diseases
+156,358,[P] Acute Respiratory Failure among persons with no chronic respiratory failure,Pulmonary/Respiratory Diseases
+157,359,[P] Acute Respiratory Failure,Pulmonary/Respiratory Diseases
+158,360,[P] Pleural Effusion,Pulmonary/Respiratory Diseases
+159,361,[P][R] Restless legs ,Sleep
+160,362,[P] Acute Kidney Injury AKI,Pulmonary/Respiratory Diseases
+161,363,[P][R] Joint stiffness ,Pulmonary/Respiratory Diseases
+162,364,[P][R] Sleep disorder ,Sleep
+163,365,[P] Dysuria,Neurology
+164,366,[P] Streptococcal throat infection,Pulmonary/Respiratory Diseases
+165,367,[P] Allergic Rhinitis,Pulmonary/Respiratory Diseases
+166,368,[P][R] Sinusitis ,Pulmonary/Respiratory Diseases
+167,372,[P] Otitis media,Pulmonary/Respiratory Diseases
+168,373,[P] Iron deficiency Anemia,Hematology
+169,374,[P][R] Drug dependence ,Pulmonary/Respiratory Diseases
+170,375,[P] Gall stone disorder,Gastroenterology
+171,379,[P][R] Ecchymosis,Hematology
+172,380,[P][R] Jaundice ,Pulmonary/Respiratory Diseases
+173,382,[P] Prurititc Rash,Neurology
+174,383,[P] Eczematous Atopic Dermatitis and non hyperkeratotic dermatosis,Infections and Infectious Diseases
+175,384,[P][R] Contact dermatitis ,Dermatology
+176,385,[P][R] Intertrigo ,Dermatology
+177,386,[P][R] Seborrheic dermatitis ,Dermatology
+178,387,[P][R] Photodermatitis ,Dermatology
+179,388,[P][R] Peripheral neuritis ,Neurology
+180,389,[P] Peripheral Neuropathy or Neuritits,Neurology
+181,391,[P] Hearing Loss,Otolaryngology
+182,392,[P] Otalgia or Otitis,Neurology
+183,394,[P] Gastroesophageal reflux disease,Gastroenterology
+184,396,[P][R] Osteoarthritis ,Miscellanea
+185,397,[P][R] Hyperplasia of prostate ,Urology
+186,398,[P] Bladder Outflow Obstruction,Urology
+187,399,[P][R] Urolithiasis ,Urology
+188,400,[P][R] Malignant tumor of prostate ,Oncology
+189,401,[P] Uterine Fibroids or benign uterine tumors,Oncology
+190,402,[P] Ventilatory assist for respiratory findings with Acute Respiratory Failure,Pulmonary/Respiratory Diseases
+191,403,[P] Acute Respiratory Failure in inpatient or Emergency room,Pulmonary/Respiratory Diseases
+192,404,"[P] Ventricular Tachycardia, in an Inpatient or Emergency room setting",Cardiology/Vascular Diseases
+193,405,[P] Atrial Fibrillation or Flutter,Cardiology/Vascular Diseases
+194,406,[P][R] Intellectual disability ,Psychiatry/Psychology
+195,407,[P][R] Hemorrhoids ,Gastroenterology
+196,410,[P] Acute Urinary tract infections UTI,Infections and Infectious Diseases
+197,411,[P] Sepsis or Septic Shock,Infections and Infectious Diseases
+198,412,"Transverse myelitis indexed on diagnosis (1Ps, 0Era, 365W)",Pulmonary/Respiratory Diseases
+199,445,[P][R] Hypoglycemia,Metabolism and Nutrition
+200,446,[P][R] Eosinophilic esophagitis,Gastroenterology
+201,447,[P][R] Esophagitis,Gastroenterology
+202,451,[P][R] Myasthenia gravis,Neurology
+203,453,[P][R] Osteoarthritis,Miscellanea
+204,454,[P][R] Dermatomyositis,Rheumatology
+205,456,[P][R] Osteoporosis,Orthopedics
+206,457,[P][R] Rheumatoid arthritis,Immunology
+207,458,[P][R] Ulcerative colitis,Gastroenterology
+208,459,[P][R] Urinary tract infectious disease,Infections and Infectious Diseases
+209,460,[P][R] Psoriasis with arthropathy,Immunology
+210,461,[P][R] Erythema multiforme,Immunology
+211,462,[P][R] Lichen planus,Dermatology
+212,463,[P][R] Sepsis,Immunology
+213,464,[P][R] Myelofibrosis,Hematology
+214,465,[P][R] Thyroiditis,Endocrinology
+215,466,[P][R] Atopic dermatitis,Dermatology
+216,467,[P][R] Systemic sclerosis,Immunology
+217,468,[P][R] Pityriasis rubra pilaris,Dermatology
+218,469,[P][R] Jaundice,Pulmonary/Respiratory Diseases
+219,470,"[P][R] Chronic lymphoid leukemia, disease",Oncology
+220,471,[P][R] Vitiligo,Dermatology
+221,472,[P][R] Myelodysplastic syndrome (clinical),Oncology
+222,473,[P][R] Acute transverse myelitis,Neurology
+223,474,[P][R] Pemphigoid,Immunology
+224,475,[P][R] Psoriasis,Immunology
+225,476,"[P][R] Acute myeloid leukemia, disease",Oncology
+226,477,[P][R] Hypothyroidism,Endocrinology
+227,478,[P][R] Malignant melanoma of skin,Oncology
+228,479,[P][R] Chilblains,Dermatology
+229,480,[P][R] Alopecia areata,Dermatology
+230,481,[P][R] Renal failure syndrome,Urology
+231,482,[P][R] Gastrointestinal hemorrhage,Gastroenterology
+232,483,[P][R] Biliary cirrhosis,Gastroenterology
+233,484,[P][R] End-stage renal disease,Urology
+234,487,[P][R] Celiac disease,Gastroenterology
+235,489,[P][R] Acute renal failure syndrome,Urology
+236,490,[P][R] Viral hepatitis C,Infections and Infectious Diseases
+237,491,[P][R] Malignant tumor of urinary bladder,Oncology
+238,492,[P][R] Cardiogenic shock,Cardiology/Vascular Diseases
+239,493,[P][R] Malignant tumor of cervix,Oncology
+240,494,[P][R] Primary malignant neoplasm of kidney,Oncology
+241,495,[P][R] Acute pancreatitis,Gastroenterology
+242,497,[P][R] Autoimmune hepatitis,Gastroenterology
+243,498,[P][R] Toxic shock syndrome,Infections and Infectious Diseases
+244,499,[P][R] Type 1 diabetes mellitus,Metabolism and Nutrition
+245,500,[P][R] Gastritis,Gastroenterology
+246,501,[P][R] Crohn's disease,Gastroenterology
+247,502,[P][R] Kidney stone,Urology
+248,503,[P][R] Type 2 diabetes mellitus,Metabolism and Nutrition
+249,504,[P][R] Sjögren's syndrome,Immunology
+250,506,[P][R] Chronic obstructive lung disease,Pulmonary/Respiratory Diseases
+251,507,[P][R] Pneumonia,Pulmonary/Respiratory Diseases
+252,508,[P][R] Allergic rhinitis,Pulmonary/Respiratory Diseases
+253,509,[P][R] Systemic lupus erythematosus,Immunology
+254,510,[P][R] Acute myocardial infarction,Cardiology/Vascular Diseases
+255,512,[P][R] Thromboangiitis obliterans,Cardiology/Vascular Diseases
+256,513,[P][R] Atrial fibrillation,Cardiology/Vascular Diseases
+257,514,[P][R] Granulomatosis with polyangiitis,Cardiology/Vascular Diseases
+258,515,[P][R] Sleep apnea,Pulmonary/Respiratory Diseases
+259,516,[P][R] Thrombotic microangiopathy,Cardiology/Vascular Diseases
+260,517,[P][R] Acute febrile mucocutaneous lymph node syndrome,Cardiology/Vascular Diseases
+261,518,[P][R] Myocarditis,Cardiology/Vascular Diseases
+262,519,[P][R] Heart failure,Cardiology/Vascular Diseases
+263,520,[P][R] Hypertensive disorder,Cardiology/Vascular Diseases
+264,521,[P][R] Asthma,Pulmonary/Respiratory Diseases
+265,522,[P][R] Coronary arteriosclerosis,Cardiology/Vascular Diseases
+266,523,[P][R] Arteriosclerotic vascular disease,Cardiology/Vascular Diseases
+267,524,[P][R] Migraine,Neurology
+268,525,[P][R] Gastroesophageal reflux disease,Gastroenterology
+269,526,[P][R] Orthostatic hypotension,Cardiology/Vascular Diseases
+270,527,[P][R] Acute respiratory failure,Pulmonary/Respiratory Diseases
+271,528,[P][R] Polyarteritis nodosa,Cardiology/Vascular Diseases
+272,529,[P][R] Cardiac arrest,Cardiology/Vascular Diseases
+273,530,[P][R] Peripheral vascular disease,Cardiology/Vascular Diseases
+274,531,[P][R] Angina pectoris,Neurology
+275,532,[P][R] Heart disease,Cardiology/Vascular Diseases
+276,533,[P][R] Otitis media,Otolaryngology
+277,534,[P][R] Transient cerebral ischemia,Cardiology/Vascular Diseases
+278,535,[P][R] Acute disseminated encephalomyelitis,Neurology
+279,536,[P][R] Age related macular degeneration,Miscellanea
+280,537,[P][R] Sensorineural hearing loss,Otolaryngology
+281,538,[P][R] Paralytic syndrome,Neurology
+282,539,[P][R] Multiple sclerosis,Neurology
+283,540,[P][R] Optic neuritis,Neurology
+284,541,[P][R] Idiopathic peripheral neuropathy,Neurology
+285,542,[P][R] Cerebral hemorrhage,Neurology
+286,543,[P][R] Seizure,Neurology
+287,544,[P][R] Encephalitis,Neurology
+288,546,[P][R] Retinal detachment,Ophthalmology
+289,547,[P][R] Retinal disorder,Ophthalmology
+290,549,[P][R] Epilepsy,Neurology
+291,550,[P][R] Chronic inflammatory demyelinating polyradiculoneuropathy,Neurology
+292,551,[P][R] Microcephalus,Pulmonary/Respiratory Diseases
+293,552,[P][R] Parkinson's disease,Neurology
+294,553,[P][R] Cerebrovascular accident,Neurology
+295,554,[P][R] Cerebrovascular disease,Cardiology/Vascular Diseases
+296,555,[P][R] Blood coagulation disorder,Hematology
+297,556,[P][R] Amyloidosis,Miscellanea
+298,557,[P][R] Angioedema,Pulmonary/Respiratory Diseases
+299,558,[P][R] Hyperlipidemia,Metabolism and Nutrition
+300,559,[P][R] Thrombocytopenic disorder,Hematology
+301,560,[P][R] Pancytopenia,Immunology
+302,561,[P][R] Myasthenic syndrome due to another disorder,Neurology
+303,562,[P][R] Edema,Pulmonary/Respiratory Diseases
+304,563,[P][R] Obesity,Metabolism and Nutrition
+305,564,[P][R] Hidradenitis,Dermatology
+306,565,[P][R] Tuberculosis,Infections and Infectious Diseases
+307,566,[P][R] Kaposi's sarcoma (clinical),Oncology
+308,567,[P][R] B-cell lymphoma (clinical),Oncology
+309,568,[P][R] Hyperkalemia,Metabolism and Nutrition
+310,569,[P][R] Systemic inflammatory response syndrome,Pulmonary/Respiratory Diseases
+311,570,[P][R] Leukopenia,Immunology
+312,571,[P][R] Schizophrenia,Psychiatry/Psychology
+313,572,[P][R] Psychotic disorder,Psychiatry/Psychology
+314,573,[P][R] Chronic pain,Neurology
+315,574,[P][R] Narcolepsy,Sleep
+316,575,[P][R] Behcet's syndrome,Cardiology/Vascular Diseases
+317,576,[P][R] Bipolar disorder,Psychiatry/Psychology
+318,577,[P][R] Posttraumatic stress disorder,Psychiatry/Psychology
+319,578,[P][R] Insomnia,Sleep
+320,579,[P][R] Ankylosing spondylitis,Rheumatology
+321,580,[P][R] Respiratory syncytial virus infection,Infections and Infectious Diseases
+322,581,[P][R] Multiple myeloma,Oncology
+323,583,[P][R] Glaucoma,Ophthalmology
+324,585,[P][R] Hypokalemia,Metabolism and Nutrition
+325,586,[P][R] Opioid dependence,Pulmonary/Respiratory Diseases
+326,587,[P][R] Opioid abuse,Psychiatry/Psychology
+327,588,[P][R] Attention deficit hyperactivity disorder,Psychiatry/Psychology
+328,589,[P][R] Pre-eclampsia,Cardiology/Vascular Diseases
+329,590,[P][R] Human immunodeficiency virus infection,Infections and Infectious Diseases
+330,591,[P][R] Autism spectrum disorder,Psychiatry/Psychology
+331,592,[P][R] Anemia,Hematology
+332,593,[P][R] Paralysis,Neurology
+333,594,[P][R] Depressive disorder,Psychiatry/Psychology
+334,595,[P][R] Pulmonary embolism,Cardiology/Vascular Diseases
+335,596,[P][R] Gout,Metabolism and Nutrition
+336,597,[P][R] Takayasu's disease,Cardiology/Vascular Diseases
+337,598,[P][R] Methicillin resistant Staphylococcus aureus infection,Infections and Infectious Diseases
+338,599,[P][R] Anaphylaxis,Immunology
+339,600,[P][R] Open-angle glaucoma,Ophthalmology
+340,602,[P][R] Anxiety,Psychiatry/Psychology
+341,603,[P][R] Human papilloma virus infection,Infections and Infectious Diseases
+342,604,[P][R] Cranial nerve disorder,Neurology
+343,607,[P][R] Malignant tumor of stomach,Oncology
+344,608,[P][R] Malignant neoplastic disease,Oncology
+345,609,[P][R] Cerebral infarction,Neurology
+346,610,[P][R] Eclampsia,Neurology
+347,611,[P][R] Diabetic ketoacidosis,Metabolism and Nutrition
+348,612,[P][R] Acute tubular necrosis,Urology
+349,613,[P][R] Tachycardia,Cardiology/Vascular Diseases
+350,614,[P][R] Venous thrombosis,Cardiology/Vascular Diseases
+351,615,[P][R] Herpes simplex,Infections and Infectious Diseases
+352,616,[P][R] Acute arthritis,Rheumatology
+353,617,[P][R] Monoclonal gammopathy (clinical),Immunology
+354,618,[P][R] Pulmonary arterial hypertension,Cardiology/Vascular Diseases
+355,619,[P][R] Gestational diabetes mellitus,Metabolism and Nutrition
+356,620,[P][R] Uveitis,Ophthalmology
+357,621,[P][R] Renal impairment,Urology
+358,622,[P][R] Non-Hodgkin's lymphoma (clinical),Oncology
+359,623,[P][R] Motor neuropathy with multiple conduction block,Neurology
+360,624,[P][R] Primary sclerosing cholangitis,Gastroenterology
+361,625,[P][R] Pustular psoriasis,Immunology
+362,626,[P][R] Cirrhosis of liver,Gastroenterology
+363,628,[P][R] Fisher's syndrome,Neurology
+364,629,[P][R] Inflammatory bowel disease,Gastroenterology
+365,630,[P][R] Facial palsy,Neurology
+366,632,[P][R] Antiphospholipid syndrome,Immunology
+367,633,[P][R] Waldenström macroglobulinemia,Oncology
+368,634,[P][R] Immunoglobulin A vasculitis,Immunology
+369,635,[P][R] Ventricular tachycardia,Cardiology/Vascular Diseases
+370,636,[P][R] Malignant tumor of breast,Oncology
+371,637,[P][R] Peripheral ischemia,Cardiology/Vascular Diseases
+372,638,[P][R] Neoplasm of thyroid gland,Oncology
+373,639,[P][R] Deep venous thrombosis,Cardiology/Vascular Diseases
+374,640,[P][R] Vasculitis,Cardiology/Vascular Diseases
+375,641,[P][R] Pericarditis,Cardiology/Vascular Diseases
+376,642,[P][R] Immune reconstitution syndrome,Immunology
+377,643,[P][R] Follicular non-Hodgkin's lymphoma,Oncology
+378,644,[P][R] Malignant tumor of prostate,Oncology
+379,645,[P][R] Guillain-Barré syndrome,Neurology
+380,646,[P][R] Bradycardia,Cardiology/Vascular Diseases
+381,647,[P][R] Retinopathy due to diabetes mellitus,Miscellanea
+382,648,[P][R] Malignant tumor of colon,Oncology
+383,649,[P][R] Malignant tumor of esophagus,Oncology
+384,650,[P][R] Malignant tumor of ovary,Oncology
+385,651,[P][R] Dementia,Neurology
+386,652,[P][R] Vasculitis of the skin,Cardiology/Vascular Diseases
+387,654,[P][R] Ischemic heart disease,Cardiology/Vascular Diseases
+388,655,[P][R] Aseptic meningitis,Neurology
+389,657,[P][R] Paresthesia,Neurology
+390,658,[P][R] Hepatic failure,Gastroenterology
+391,659,[P][R] Malignant neoplasm of liver,Oncology
+392,660,[P][R] Juvenile rheumatoid arthritis,Rheumatology
+393,661,[P][R] Respiratory failure,Pulmonary/Respiratory Diseases
+394,662,[P][R] Diverticulitis of large intestine,Gastroenterology
+395,663,[P][R] Influenza,Pulmonary/Respiratory Diseases
+396,665,[P][R] Suicidal thoughts,Pulmonary/Respiratory Diseases
+397,666,[P][R] Type B viral hepatitis,Infections and Infectious Diseases
+398,667,[P][R] Guttate psoriasis,Immunology
+399,668,[P][R] SLE glomerulonephritis syndrome,Immunology
+400,669,[P][R] Schizoaffective disorder,Psychiatry/Psychology
+401,670,[P][R] Temporal arteritis,Cardiology/Vascular Diseases
+402,673,[P][R] Primary malignant neoplasm of respiratory tract,Pulmonary/Respiratory Diseases
+403,674,[P][R] Degeneration of retina,Miscellanea
+404,675,[P][R] Pulmonary hypertension,Cardiology/Vascular Diseases
+405,676,[P][R] Microscopic polyarteritis nodosa,Pulmonary/Respiratory Diseases
+406,677,[P][R] Preterm labor with preterm delivery,Obstetrics/Gynecology
+407,678,[P][R] COVID-19,Infections and Infectious Diseases
+408,679,[P][R] Takotsubo cardiomyopathy,Cardiology/Vascular Diseases
+409,680,[P][R] Mantle cell lymphoma,Oncology
+410,681,[P][R] Malignant neoplasm of anorectum,Oncology
+411,682,[P][R] Marginal zone lymphoma,Oncology
+412,683,[P][R] Antineutrophil cytoplasmic antibody positive vasculitis,Cardiology/Vascular Diseases
+413,684,[P][R] Sensory disorder of smell and/or taste,Neurology
+414,685,[P][R] Cardiac arrhythmia,Cardiology/Vascular Diseases
+415,686,[P][R] Fracture of bone of hip region,Orthopedics
+416,687,[P][R] Chronic kidney disease,Urology
+417,690,[P][R] Suicide,Pulmonary/Respiratory Diseases
+418,691,Transverse myelitis or symptoms indexed on symptoms or diagnosis,Neurology
+419,692,Transverse myelitis indexed on diagnosis,Neurology
+420,693,Acquired Neutropenia or unspecified leukopenia,Oncology
+421,694,Appendicitis during Inpatient visit,Gastroenterology
+422,695,[P][R] Optic nerve glioma,Oncology
+423,696,[P][R] Neurofibromatosis type 2,Oncology
+424,697,[P][R] Neurofibromatosis type 1,Oncology
+425,698,[P][R] Neurofibromatosis syndrome,Oncology
+426,699,[P][R] Major Depressive Disorder,Psychiatry/Psychology
