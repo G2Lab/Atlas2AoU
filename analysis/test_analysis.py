@@ -21,6 +21,7 @@ class TestUKBBPrevCoPrev(unittest.TestCase):
         # diagnoses less than 20 and above 
         self.cohortIds = [223,219,207,211]
         self.ukbb_prev = pd.read_csv('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/output/UKBBPrev.csv',index_col=0)
+        self.ukbb_coprev = pd.read_csv('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/output/UKBBCoPrev.csv',index_col=0)
     def tearDown(self):
         self.engine.dispose()
     def test_ukbb_prev(self):
@@ -53,7 +54,39 @@ class TestUKBBPrevCoPrev(unittest.TestCase):
         # Apply the check to each row
         self.ukbb_prev.apply(check_diag, axis=1)
     def test_ukbb_coprev(self):
-        pass
+        print('testing coprev')
+        # test coprev
+        cohortIds_in_coprev = []
+        # for those with diagnoses less than 20 - should not be in coprev
+        for cohortId in self.cohortIds:
+            if self.ukbb_prev[self.ukbb_prev['cohortId']==cohortId]['Count_ukbb'].values[0] != 'Diagnoses <= 20':
+                cohortIds_in_coprev.append(cohortId)
+            else:
+                self.assertTrue(cohortId not in self.ukbb_coprev.index)
+        N_ukbb = self.ukbb_prev['N_ukbb'].unique()[0]
+        #for those with cell counts more than 20, get coprev values and check
+        for cohortId1 in cohortIds_in_coprev:
+            sql = f'SELECT DISTINCT subject_id FROM COHORT WHERE cohort_definition_id = {cohortId1};'
+            c1 = set(pd.read_sql(sql, con=self.engine).subject_id.unique())
+            for cohortId2 in cohortIds_in_coprev:
+                sql = f'SELECT DISTINCT subject_id FROM COHORT WHERE cohort_definition_id = {cohortId2};'
+                c2 = set(pd.read_sql(sql, con=self.engine).subject_id.unique())
+                len_int = len(c1.intersection(c2))
+                coprev = len_int/N_ukbb
+                self.assertTrue(abs(coprev - self.ukbb_coprev.loc[cohortId1,str(cohortId2)])<1e-10)
+        # check that there is no co-prev count less than 20
+        self.assertTrue(all([(i*N_ukbb>20)|(np.isnan(i)) for i in self.ukbb_coprev.values.flatten().tolist()]))
+        # check that ukbb coprev diag equals ukbb prev
+        coprev_make_prev = [self.ukbb_coprev.loc[i, str(i)] for i in self.ukbb_coprev.index]
+        coprev_make_prev = pd.DataFrame(coprev_make_prev,index = self.ukbb_coprev.index,columns = ['Prev_ukbb_from_coprev'])
+        coprev_make_prev.reset_index(inplace=True)
+        coprev_make_prev.columns = ['cohortId','Prev_ukbb_from_coprev']
+        test = self.ukbb_prev.merge(coprev_make_prev,how='outer',on='cohortId')
+        test = test[~test['Prev_ukbb_from_coprev'].isna()].copy()
+        test.Prev_ukbb = test.Prev_ukbb.astype(float)
+        self.assertTrue(all(np.isclose(test['Prev_ukbb_from_coprev'], test['Prev_ukbb'], atol=1e-5)))
+
+        
 
 # test UKBBSDOH estimates
 class TestUKBBSDOH(unittest.TestCase):

@@ -19,8 +19,9 @@ import configparser
 import subprocess
 from plotnine import *
 import numpy as np
-from gtfparse import read_gtf
-
+import sys
+sys.path.append('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/py_files')
+from utilities import  make_manhattan_plot, get_gtf, get_gene_annot
 
 
 parser = argparse.ArgumentParser(description='Process parameters.')
@@ -121,67 +122,13 @@ result = subprocess.run(f'module load plink && plink --bfile {args.ukbb_data_dir
 
 # once job is finished, create manhattan plot
 plink_results = pd.read_csv(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE.Phenotype.glm.logistic',sep='\t')
-plink_results = plink_results[plink_results['TEST']=='ADD'].copy()
-plink_results['color_group'] = plink_results['#CHROM'] % 2
-# get chromosome midpoint and adjust pos for graphing
-chromosome_lengths = plink_results.groupby('#CHROM')['POS'].max()
-chromosome_starts = chromosome_lengths.cumsum().shift(1).fillna(0)
-plink_results = plink_results.merge(chromosome_starts.rename('start_pos'), on='#CHROM')
-plink_results['adjusted_POS'] = plink_results['POS'] + plink_results['start_pos']
-chromosome_mid = plink_results.groupby('#CHROM')['adjusted_POS'].apply(lambda x: (x.min() + x.max()) / 2)
-chromosome_mid = chromosome_mid.to_dict()
-plink_results['#CHROM'] = pd.Categorical(plink_results['#CHROM'])
-# -log(p-value)
-plink_results['minuslog10p'] = -np.log10(plink_results['P'])
-plot = (ggplot(plink_results) 
- + geom_point(aes(x='adjusted_POS', y='minuslog10p', colour='factor(color_group)'), alpha=0.5,size=1)  # Plot points colored by chromosome
- + scale_color_manual(values=["#6F8FAF", "#00008B"],guide=False)
- + labs(title='Manhattan Plot', x='Chromosome', y='-log10(p-value)')  
- + theme(panel_grid=element_blank(),panel_border=element_blank(),legend_position=None, panel_background=element_rect(fill='white'),axis_text_x=element_text(size=6),figure_size=(10, 6)) 
-+ scale_x_continuous(labels=list(chromosome_mid.keys()), breaks=list(chromosome_mid.values()))
-+ geom_hline(yintercept=-np.log10(5e-8), colour='grey',linetype='dashed', color='gray')
+make_manhattan_plot(plink_results,args.analysis_output_dir,args.cohortId,'ukbb')
 
-)
-plot.save(f'{args.analysis_output_dir}/Manhattan_Plot_c{args.cohortId}', dpi=300)
 
-# get gene exon annotations
-#get gene exons of the snps
-def get_gtf(PATH_GTF):
-    # gets info on autosomal, protein-coding genes
-    gtf = pd.DataFrame()
-    gtf= read_gtf(PATH_GTF, 
-                usecols=['seqname','gene_id','feature','start',
-                        'end', 'gene_type','strand', 'gene_name'])
-    # get autosomal chromosome
-    gtf = gtf.to_pandas()
-    gtf.seqname = gtf['seqname'].apply(lambda x: x.replace('chr', ''))
-    gtf = gtf[gtf['seqname'].isin([str(i) for i in range(1,23)])]
-    gtf['seqname'] = gtf['seqname'].cat.remove_unused_categories()
-    gtf.seqname = gtf.seqname.astype(int)
-    # get protein-coding genes
-    gtf = gtf[gtf.gene_type=='protein_coding'].copy()
-    # can remove rows with feature 'gene' - they are redundant
-    gtf = gtf[gtf.feature!='gene'].copy()
-    return gtf
-
-def get_gene_annot(results, ANNOT_PATH, gtf = None):
-    # return dataframe that has additional column with gene list and another with the corresponding features
-    if gtf is None:
-        gtf = get_gtf(f'{ANNOT_PATH}/gencode.v44lift37.annotation.gtf')
-    #get results in genes
-    results[['gene_annot_exon', 'gene_annot_other']] = results.apply(lambda row: pd.Series([
-        gtf[(gtf['start'] <= row['POS']) & (gtf['end'] >= row['POS']) & (row['#CHROM'] == gtf['seqname'])&(gtf['feature']=='exon')]['gene_name'].unique().tolist(),
-        gtf[(gtf['start'] <= row['POS']) & (gtf['end'] >= row['POS']) & (row['#CHROM'] == gtf['seqname'])&(gtf['feature'].isin(['UTR', 'CDS', 'start_codon', 'stop_codon']))]['gene_name'].unique().tolist()
-    ]),axis=1)
-    # make sure that only returning unique vals
-    assert all(results['gene_annot_exon'].apply(lambda lst: len(lst) == len(set(lst))).values)
-    assert all(results['gene_annot_other'].apply(lambda lst: len(lst) == len(set(lst))).values)
-    return results
-
-sig_results = plink_results[plink_results['P']<5e-8].copy()
-sig_results = get_gene_annot(sig_results,args.annot_data_dir)
+sig_results = plink_results[(plink_results['P']<5e-8)&(plink_results['TEST']=='ADD')].copy()
+sig_results = get_gene_annot(sig_results,f'{args.annot_data_dir}/gencode.v44lift37.annotation.gtf')
 # write to txt file
-with open(f'{args.analysis_output_dir}/Exons_c{args.cohortId}','w') as f:
+with open(f'{args.analysis_output_dir}/Exons_c{args.cohortId}_ukbb.txt','w') as f:
     for ge in sig_results.explode('gene_annot_exon')[~sig_results.explode('gene_annot_exon')['gene_annot_exon'].isna()].gene_annot_exon.unique().tolist():
         f.write(ge)
         f.write('\n')
