@@ -3,8 +3,8 @@
 #SBATCH --partition=pe2
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=anewbury@nygenome.org
-#SBATCH --mem=15G
-#SBATCH --cpus-per-task=8
+#SBATCH --mem=64G
+#SBATCH --cpus-per-task=16
 #SBATCH --time=80:00:00
 #SBATCH --output=/gpfs/commons/groups/gursoy_lab/anewbury/atlas2aou_gwas_output.txt
 #SBATCH --error=/gpfs/commons/groups/gursoy_lab/anewbury/atlas2aou_gwas_errors.txt
@@ -45,20 +45,25 @@ engine = create_engine(f'postgresql://{username}:{password}@{host}/{database}')
 
 
 # merge files and run QC
-if not os.path.exists(f'{args.ukbb_data_dir}/SNPS/FILE_QC.bed'):
-    result = subprocess.run(f'module load plink/1.90b6.24 && plink --vcf {args.ukbb_data_dir}/ImputationV3/allchromosomes.vcf.gz --make-bed --out {args.ukbb_data_dir}/Atlas2AoU/SNPS/merged', shell=True, capture_output=True, text=True, executable='/bin/bash')
+if not os.path.exists(f'{args.ukbb_data_dir}/Atlas2AoU/SNPS/FILE_QC_direct.bed'):
+    print("running qc")
+    result = subprocess.run(f'module load plink/1.90b6.24 && plink --merge-list {args.ukbb_data_dir}/Atlas2AoU/SNPS/merge.txt --out {args.ukbb_data_dir}/Atlas2AoU/SNPS/merged_direct', shell=True, capture_output=True, text=True, executable='/bin/bash')
+    print("stdout:", result.stdout)
+    print("stderr:", result.stderr)
     # QC
-    result = subprocess.run(f'module load plink/1.90b6.24 && plink --bfile {args.ukbb_data_dir}/Atlas2AoU/SNPS/merged --mind 0.05 --geno 0.05 --maf 0.05 --hwe 0.000001 --indep-pairwise 50 5 0.5 --make-bed --out {args.ukbb_data_dir}/SNPS/FILE_QC', shell=True, capture_output=True, text=True, executable='/bin/bash')
-
+    result = subprocess.run(f'module load plink/1.90b6.24 && plink --bfile {args.ukbb_data_dir}/Atlas2AoU/SNPS/merged_direct --mind 0.05 --geno 0.05 --maf 0.05 --hwe 0.000001 --indep-pairwise 50 5 0.5 --make-bed --out {args.ukbb_data_dir}/Atlas2AoU/SNPS/FILE_QC_direct', shell=True, capture_output=True, text=True, executable='/bin/bash')
+    print('--------')
+    print("stdout:", result.stdout)
+    print("stderr:", result.stderr)
 # write to pheno and covar files for plink
 # covar file
 if not os.path.exists(f'{args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE'):
-    query = '''SELECT DISTINCT person_id AS IID, 2012-year_of_birth AS age, gender_concept_id AS gender FROM PERSON;'''
+    query = '''SELECT DISTINCT person_id AS IID, year_of_birth AS age, gender_concept_id AS gender FROM PERSON;'''
     demo= pd.read_sql(query, con=engine)
     demo.columns=['IID','Age','Sex']
     demo.set_index('IID',inplace=True)
     # read in pcs
-    pcs = pd.read_csv(f'{os.path.dirname(args.ukbb_data_dir)}/principal_components.csv')
+    pcs = pd.read_csv(f'{args.ukbb_data_dir}/principal_components.csv')
     pcs = pcs.rename(columns={'eid':'IID','26201-0.0':'PC1','26201-0.1':'PC2','26201-0.2':'PC3','26201-0.3':'PC4'})
     pcs.set_index('IID',inplace=True)
     # remove those where the pcs are empty
@@ -68,7 +73,7 @@ if not os.path.exists(f'{args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE'):
     covar['Sex'] = covar['Sex'].replace({8507: 0, 8532: 1})
     # Read the .fam file and create a list of dictionaries with FID and IID
     data = []
-    with open(f'{args.ukbb_data_dir}/Atlas2AoU/SNPS/merged.fam', 'r') as fam_file:
+    with open(f'{args.ukbb_data_dir}/Atlas2AoU/SNPS/merged_direct.fam', 'r') as fam_file:
         for line in fam_file:
             fields = line.strip().split()
             family_id = fields[0]
@@ -117,8 +122,9 @@ os.makedirs(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}', exist_ok=Tr
 pheno.to_csv(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE')
 
 # submit job for gwas
-result = subprocess.run(f'module load plink && plink --bfile {args.ukbb_data_dir}/Atlas2AoU/SNPS/FILE_QC --covar {args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE --pheno {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE --glm --out {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE --1 --no-pheno --memory 20000 --threads 10', shell=True, capture_output=True, text=True, executable='/bin/bash')
-
+result = subprocess.run(f'module load plink && plink --bfile {args.ukbb_data_dir}/Atlas2AoU/SNPS/FILE_QC_direct --covar {args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE --covar-variance-standardize --pheno {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE --glm --out {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE --1 --no-pheno --memory 20000 --threads 10', shell=True, capture_output=True, text=True, executable='/bin/bash')
+print("stdout:", result.stdout)
+print("stderr:", result.stderr)
 
 # once job is finished, create manhattan plot
 plink_results = pd.read_csv(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE.Phenotype.glm.logistic',sep='\t')
