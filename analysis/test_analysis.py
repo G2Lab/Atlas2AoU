@@ -221,8 +221,6 @@ class TestGWAS(unittest.TestCase):
         df = pd.read_sql(query, con=self.engine)
         df.set_index('eid',inplace=True)
         df.sort_index(inplace=True)
-        print(df.head())
-        print(covar.head())
         assert df.equals(covar[['sex','yob']])
 
         # check PCs
@@ -247,7 +245,7 @@ class TestGWAS(unittest.TestCase):
                 assert (f'Results written to {self.Atlas2AoU_gwas_dir}/PHENO_{cohortId}/RESULTS_FILE.Phenotype.glm.logistic' in log_file)
 
                 # make sure correct snps written
-                assert f'{self.Atlas2AoU_gwas_dir}/SNPS/FILE_QC.bim' in log_file
+                assert f'{self.Atlas2AoU_gwas_dir}/SNPS/FILE_QC_direct.bim' in log_file
 
     def test_gwas_exons(self):
         pass
