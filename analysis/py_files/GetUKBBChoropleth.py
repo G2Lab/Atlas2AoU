@@ -6,11 +6,14 @@ from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from utilities import get_choropleth_map
+import argparse
 
-analysis_path = '/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis'
-ukbb_environ_path = '/gpfs/commons/datasets/controlled/ukbb-gursoylab/environ'
+parser = argparse.ArgumentParser(description='Process hyperparameters.')
+parser.add_argument('-analysis_path', required=True,type=str, help='Path to aou-atlas-phenotyping analysis folder')
+parser.add_argument('-ukbb_environ_path', required=True,type=str, help='Path to ukbb environ data')
+args = parser.parse_args()
 
-regions = gpd.read_file(f'{analysis_path}/data/Counties_and_Unitary_Authorities_May_2023_UK_BFC_7858717830545248014.geojson')
+regions = gpd.read_file(f'{args.analysis_path}/data/Counties_and_Unitary_Authorities_May_2023_UK_BFC_7858717830545248014.geojson')
 regions.crs = "EPSG:27700" 
 
 cohortids = [28,288,71]
@@ -28,7 +31,7 @@ database = config.get('postgres', 'database')
 engine = create_engine(f'postgresql://{username}:{password}@{host}/{database}')
 
 
-birthplace = pd.read_csv(f'{ukbb_environ_path}/ukb678011.csv')
+birthplace = pd.read_csv(f'{args.ukbb_environ_path}/ukb678011.csv')
 # from baseline assessment
 birthplace = birthplace[['eid','129-0.0','130-0.0']].copy()
 # north and east coordinates respectively
@@ -49,4 +52,4 @@ for cohortId in cohortids:
     cases = set(cases.subject_id.unique())
     # controls are everyone else
     get_choropleth_map(merged=birthplace_gdf,cases=cases,region_column='CTYUA23CD',person_column='eid',regions=regions,
-                       output_path=f'{analysis_path}/output',cohortId=cohortId)
+                       output_path=f'{args.analysis_path}/output',cohortId=cohortId)

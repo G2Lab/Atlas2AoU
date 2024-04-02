@@ -5,7 +5,8 @@ library(SqlRender)
 library(dplyr)
 library(stringr)
 
-AOU_FOLDER_PATH <- "/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping"
+args <- commandArgs(trailingOnly = TRUE)
+AOU_FOLDER_PATH <- args[1]
 setwd(AOU_FOLDER_PATH)
 if (!file.exists('analysis/sqlserver_sql_files')) {
   dir.create('analysis/sqlserver_sql_files')

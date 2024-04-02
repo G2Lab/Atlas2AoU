@@ -2,12 +2,11 @@
 #SBATCH --job-name=atlas2aou_gwas
 #SBATCH --partition=pe2
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=anewbury@nygenome.org
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=16
 #SBATCH --time=80:00:00
-#SBATCH --output=/gpfs/commons/groups/gursoy_lab/anewbury/atlas2aou_gwas_output.txt
-#SBATCH --error=/gpfs/commons/groups/gursoy_lab/anewbury/atlas2aou_gwas_errors.txt
+#SBATCH --output=atlas2aou_gwas_output.txt
+#SBATCH --error=atlas2aou_gwas_errors.txt
 
 #  run GWAS using PLINK for UKBB
 
@@ -19,9 +18,6 @@ import configparser
 import subprocess
 from plotnine import *
 import numpy as np
-import sys
-sys.path.append('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/py_files')
-from utilities import  make_manhattan_plot, get_gtf, get_gene_annot
 
 
 parser = argparse.ArgumentParser(description='Process parameters.')
@@ -31,6 +27,10 @@ parser.add_argument('--analysis_output_dir', type=str, help='analysis output dir
 parser.add_argument('--annot_data_dir', type=str, help='data directory where gtf annot file gencode.v44lift37.annotation.gtf is',default='')
 parser.add_argument('--c', type=str, help='path to config file for postgres db',default='')
 args = parser.parse_args()
+
+import sys
+sys.path.append(f'{os.path.dirname(args.analysis_output_dir)}/py_files')
+from utilities import  make_manhattan_plot, get_gtf, get_gene_annot
 
 # Read the configuration from the .ini file (config.ini)
 config = configparser.ConfigParser()

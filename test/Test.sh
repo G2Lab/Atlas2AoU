@@ -3,9 +3,9 @@
 # If file run is successful, writes file in bigquery format to output/ folder to be used in AoU. Otherwise records sql path in unsuccessful_comparison.txt folder
 
 ### LOAD ENVIRONMENT
-module load R/4.2.3
-module load java/20.0.1
-source ~/miniconda/bin/activate ~/miniconda/envs/jupyter/
+#module load R/4.2.3
+#module load java/20.0.1
+#source ~/miniconda/bin/activate ~/miniconda/envs/jupyter/
 ### LOAD ENVIRONMENT
 
 ### DEFINE PARAMETERS

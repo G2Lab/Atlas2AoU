@@ -2,12 +2,11 @@
 #SBATCH --job-name=sdoh
 #SBATCH --partition=pe2
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=anewbury@nygenome.org
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=4
 #SBATCH --time=80:00:00
-#SBATCH --output=/gpfs/commons/groups/gursoy_lab/anewbury/sdoh_output.txt
-#SBATCH --error=/gpfs/commons/groups/gursoy_lab/anewbury/sdoh_errors.txt
+#SBATCH --output=sdoh_output.txt
+#SBATCH --error=sdoh_errors.txt
 
 
 

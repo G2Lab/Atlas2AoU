@@ -2,12 +2,11 @@
 #SBATCH --job-name=atlas2aou_prev
 #SBATCH --partition=pe2
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=anewbury@nygenome.org
 #SBATCH --mem=15G
 #SBATCH --cpus-per-task=8
 #SBATCH --time=80:00:00
-#SBATCH --output=/gpfs/commons/groups/gursoy_lab/anewbury/atlas2aou_prev_output.txt
-#SBATCH --error=/gpfs/commons/groups/gursoy_lab/anewbury/atlas2aou_prev_errors.txt
+#SBATCH --output=atlas2aou_prev_output.txt
+#SBATCH --error=atlas2aou_prev_errors.txt
 
 # get UKBB prevalence estimates from postgres DB (for prevalence comparison with AoU)
 import pandas as pd
@@ -26,7 +25,7 @@ parser.add_argument('-c', required=True, type=str, help='Config file for databas
 args = parser.parse_args()
 ### READ INPUTS
 
-sys.path.append('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/py_files')
+sys.path.append(f'{os.path.dirname(args.o)}/py_files')
 from utilities import  get_co_prev_df
 
 # Read the configuration from the .ini file (config.ini)

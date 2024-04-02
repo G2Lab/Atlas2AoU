@@ -6,9 +6,8 @@
 #SBATCH --mem=1G
 #SBATCH --time=120:00:00
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=anewbury@nygenome.org
-#SBATCH --error=/gpfs/commons/groups/gursoy_lab/anewbury/TestOHDSIphenos_errors.txt
-#SBATCH --output=/gpfs/commons/groups/gursoy_lab/anewbury/TestOHDSIphenos_output.txt
+#SBATCH --error=TestOHDSIphenos_errors.txt
+#SBATCH --output=TestOHDSIphenos_output.txt
 # Run Test.sh on all 428 OHDSI Phenotypes in data/OHDSIPhenotypes.csv
 
 ### DEFINE PARAMETERS
