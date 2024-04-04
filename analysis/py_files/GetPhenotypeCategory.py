@@ -129,8 +129,8 @@ if __name__ == '__main__':
     liu_cat = pd.read_csv(f'{args.f}/analysis/data/liu_condition_cat.csv')
 
     # get json files of atlas queries
-    # os.makedirs(f'{args.f}/analysis/json_files', exist_ok=True)
-    # phenotypes.apply(lambda row: subprocess.call(f'/usr/bin/wget -O {args.f}/analysis/json_files/{row["cohortId"]}.json https://raw.githubusercontent.com/OHDSI/PhenotypeLibrary/ac17b7af55b01ec91eb2ac1ca1ea30473f8ba621/inst/cohorts/{row["cohortId"]}.json', shell=True),axis=1)
+    os.makedirs(f'{args.f}/analysis/json_files', exist_ok=True)
+    phenotypes.apply(lambda row: subprocess.call(f'/usr/bin/wget -O {args.f}/analysis/json_files/{row["cohortId"]}.json https://raw.githubusercontent.com/OHDSI/PhenotypeLibrary/ac17b7af55b01ec91eb2ac1ca1ea30473f8ba621/inst/cohorts/{row["cohortId"]}.json', shell=True),axis=1)
 
     # map to category
     map_to_snomed_index_with_fixed_params = partial(map_to_snomed_index, concept_ans=concept_ans,concept=concept,concept_rel=concept_rel,liu_cat=liu_cat)

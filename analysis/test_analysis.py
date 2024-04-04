@@ -6,13 +6,29 @@ from sqlalchemy import create_engine
 import numpy as np
 from pyplink import PyPlink
 import glob
+import sys
+import configparser
+import os
+
+# path to aou phenotyping folder
+f = os.environ.get('f')
+# path to config file
+c = os.environ.get('c')
+# path to ukbb data dir
+ukbb_data_dir = os.environ.get('ukbb_data_dir')
+# path to gtf annot
+gtf_annot_path = os.environ.get('gtf_annot_path')
+
+
+sys.path.append(f'{f}/analysis/py_files')
+from utilities import get_gtf
 
 # test UKBB prev. and co-prev estimates
 class TestUKBBPrevCoPrev(unittest.TestCase):
     def setUp(self):
         # Read the configuration from the .ini file (config.ini)
         config = configparser.ConfigParser()
-        config.read('/gpfs/commons/home/anewbury/config.ini')  # Provide the path to your config.ini file
+        config.read(c)  # Provide the path to your config.ini file
         # Database configuration
         username = config.get('postgres', 'username')
         password = config.get('postgres', 'password')
@@ -22,8 +38,8 @@ class TestUKBBPrevCoPrev(unittest.TestCase):
         self.engine = create_engine(f'postgresql://{username}:{password}@{host}/{database}')
         # diagnoses less than 20 and above 
         self.cohortIds = [223,219,207,211]
-        self.ukbb_prev = pd.read_csv('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/output/UKBBPrev.csv',index_col=0)
-        self.ukbb_coprev = pd.read_csv('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/output/UKBBCoPrev.csv',index_col=0)
+        self.ukbb_prev = pd.read_csv(f'{f}/analysis/output/UKBBPrev.csv',index_col=0)
+        self.ukbb_coprev = pd.read_csv(f'{f}/analysis/output/UKBBCoPrev.csv',index_col=0)
     def tearDown(self):
         self.engine.dispose()
     def test_ukbb_prev(self):
@@ -32,7 +48,7 @@ class TestUKBBPrevCoPrev(unittest.TestCase):
         for index, row in ukbb_prev_sample.iterrows(): 
             query = f"SELECT COUNT(DISTINCT subject_id) FROM COHORT WHERE cohort_definition_id = {row['cohortId']}"
             df = pd.read_sql(query, con=self.engine)
-            if df.iloc[0]['count'] <20:
+            if df.iloc[0]['count'] <21:
                 self.assertEqual(row['Count_ukbb'],'Diagnoses <= 20')
                 self.assertEqual(row['Prev_ukbb'],'Diagnoses <= 20')
             else:
@@ -42,8 +58,8 @@ class TestUKBBPrevCoPrev(unittest.TestCase):
         # assert that no counts less than 20
         self.assertTrue(all(self.ukbb_prev['Count_ukbb'].apply(lambda x: x=='Diagnoses <= 20' if x== 'Diagnoses <= 20' else int(x)>20)))
 
-        # assert no prevalence that implies count less than 20
-        self.assertTrue(all(self.ukbb_prev.apply(lambda x: x['Prev_ukbb']=='Diagnoses <= 20' if x['Prev_ukbb']== 'Diagnoses <= 20' else float(x['Prev_ukbb'])*float(x['N_ukbb']) > 20, axis=1)))
+        # assert no prevalence that implies count less than 21
+        self.assertTrue(all(self.ukbb_prev.apply(lambda x: x['Prev_ukbb']=='Diagnoses <= 20' if x['Prev_ukbb']== 'Diagnoses <= 20' else float(x['Prev_ukbb'])*float(x['N_ukbb']) > 21, axis=1)))
 
         # assert that prev and count are both Diagnoses <= 20 at the same time
         def check_diag(row):
@@ -93,18 +109,18 @@ class TestUKBBPrevCoPrev(unittest.TestCase):
 # test UKBBSDOH estimates
 class TestUKBBSDOH(unittest.TestCase):
     def setUp(self):
-        self.ukbb_sdoh = pd.read_csv('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/output/UKBBSDOH.csv',index_col=0)
-        file_path = f'/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/data/MappingMain-FineGrained.xlsx'
+        self.ukbb_sdoh = pd.read_csv(f'{f}/analysis/output/UKBBSDOH.csv',index_col=0)
+        file_path = f'{f}/analysis/data/MappingMain-FineGrained.xlsx'
         xls = pd.ExcelFile(file_path, engine='openpyxl')
         self.sheets_dict = pd.read_excel(xls, sheet_name=None)
         xls.close()
         self.cohortids = [28, 288, 71]
-        self.ukbb_prev = pd.read_csv('/gpfs/commons/groups/gursoy_lab/anewbury/aou-atlas-phenotyping/analysis/output/UKBBPrev.csv',index_col=0)
+        self.ukbb_prev = pd.read_csv(f'{f}/analysis/output/UKBBPrev.csv',index_col=0)
 
 
         # Read the configuration from the .ini file (config.ini)
         config = configparser.ConfigParser()
-        config.read('/gpfs/commons/home/anewbury/config.ini')  # Provide the path to your config.ini file
+        config.read(c)  # Provide the path to your config.ini file
         # Database configuration
         username = config.get('postgres', 'username')
         password = config.get('postgres', 'password')
@@ -173,7 +189,7 @@ class TestGWAS(unittest.TestCase):
         password = config.get('postgres', 'password')
         host = config.get('postgres', 'host')
         database = config.get('postgres', 'database')
-        self.Atlas2AoU_gwas_dir = '/gpfs/commons/datasets/controlled/ukbb-gursoylab/Atlas2AoU'
+        self.Atlas2AoU_gwas_dir = ukbb_data_dir
         # Create the database engine using the configuration
         self.engine = create_engine(f'postgresql://{username}:{password}@{host}/{database}')
         self.covar_iids = set(pd.read_csv(f'{self.Atlas2AoU_gwas_dir}/COVARIATE_FILE').IID.unique())
@@ -202,7 +218,7 @@ class TestGWAS(unittest.TestCase):
         covar.sort_index(inplace=True)
 
         # check FID and batch (from fam file)
-        pyp = PyPlink("/gpfs/commons/datasets/controlled/ukbb-gursoylab/anewbury/REGULAR_SNPS/merged")
+        pyp = PyPlink(f"{ukbb_data_dir}/SNPS/merged_direct")
         fam = pyp.get_fam()
         pyp.close()
         fam = fam.astype('int')
@@ -224,7 +240,7 @@ class TestGWAS(unittest.TestCase):
         assert df.equals(covar[['sex','yob']])
 
         # check PCs
-        pcs = pd.read_csv('/gpfs/commons/datasets/controlled/ukbb-gursoylab/anewbury/principal_components.csv')
+        pcs = pd.read_csv(f'{os.path.dirname(ukbb_data_dir)}/principal_components.csv')
         pcs.set_index('eid',inplace=True)
         pcs.sort_index(inplace=True)
         assert pcs[pcs.index.isin(covar.index)].equals(covar[['26201-0.0','26201-0.1','26201-0.2','26201-0.3']])
@@ -239,8 +255,8 @@ class TestGWAS(unittest.TestCase):
     def test_GWASCompleted(self):
         # test PLINK GWAS completed for all - and with the right snps
         for cohortId in self.cohortids:
-            with open(f'{self.Atlas2AoU_gwas_dir}/PHENO_{cohortId}/RESULTS_FILE.log','r') as f:
-                log_file = f.read()
+            with open(f'{self.Atlas2AoU_gwas_dir}/PHENO_{cohortId}/RESULTS_FILE.log','r') as file_:
+                log_file = file_.read()
                 # make sure run completed 
                 assert (f'Results written to {self.Atlas2AoU_gwas_dir}/PHENO_{cohortId}/RESULTS_FILE.Phenotype.glm.logistic' in log_file)
 
@@ -248,21 +264,21 @@ class TestGWAS(unittest.TestCase):
                 assert f'{self.Atlas2AoU_gwas_dir}/SNPS/FILE_QC_direct.bim' in log_file
 
     def test_gwas_exons(self):
-        pass
-        # # pick an exob
-        # # testing for example rs rs3115850
-        # df = pd.read_csv('/gpfs/commons/datasets/controlled/ukbb-gursoylab/anewbury/PHENO_552/REGULAR_RESULTS_FILE.Phenotype.glm.logistic',sep='\t').head(1)
-        # results = get_gene_annot(df,'/gpfs/commons/groups/gursoy_lab/anewbury/gwas/data/annotations')
-        # # confirmed these findings with literature search
-        # assert results[results.ID == 'rs3115850']['gene_annot'].values.tolist() == ['ENSG00000230021', 'LINC00115', 'LINC01128']
-        # assert results[results.ID == 'rs3115850']['gene_feature'].values.tolist() == ['gene', 'transcript', 'exon']
-        # # confirmed that gene name and feature encompass snp position
-        # gtf = get_gtf('/gpfs/commons/groups/gursoy_lab/anewbury/gwas/data/annotations/gencode.v44lift37.annotation.gtf')
-        # self.assertTrue(gtf[(gtf['gene_name']=='ENSG00000230021')&(gtf['start']<761147)&(gtf['end']>761147)].shape[0]>0)
-        # self.assertTrue(gtf[(gtf['gene_name']=='LINC00115')&(gtf['start']<761147)&(gtf['end']>761147)].shape[0]>0)
-        # self.assertTrue(gtf[(gtf['gene_name']=='LINC01128')&(gtf['start']<761147)&(gtf['end']>761147)].shape[0]>0)
-        # self.assertTrue(gtf[(gtf['feature']=='gene')&(gtf['start']<761147)&(gtf['end']>761147)].shape[0]>0)
-        # self.assertTrue(gtf[(gtf['feature']=='transcript')&(gtf['start']<761147)&(gtf['end']>761147)].shape[0]>0)
-        # self.assertTrue(gtf[(gtf['feature']=='exon')&(gtf['start']<761147)&(gtf['end']>761147)].shape[0]>0)
-        # # confirm that no other genes were in this area
-        # self.assertEqual(gtf[(gtf['seqname']==1)&(gtf['start']<761147)&(gtf['end']>761147)&(~gtf.gene_name.isin(['ENSG00000230021', 'LINC00115', 'LINC01128']))].shape[0],0)
+        gtf = get_gtf(gtf_annot_path)
+        for cohortId in [28,288,71]:
+            df = pd.read_csv(f'{ukbb_data_dir}/PHENO_{cohortId}/RESULTS_FILE.Phenotype.glm.logistic',sep='\t')
+            df = df[(df['P']<5e-8)&(df['TEST']=='ADD')].copy()
+            # read in sig exons
+            with open(f'{f}/analysis/output/Exons_c{cohortId}_ukbb.txt','r') as file_:
+                sig_exons = file_.readlines()
+            sig_exons = [i.strip('\n') for i in sig_exons]
+
+            for sig_exon in sig_exons:
+                # get regions of these sig exons
+                sig_rgns = gtf[gtf.gene_name==sig_exon]
+                snp_in_rgn = 0
+                # check that there exist sig snps in these regions
+                for _,row in sig_rgns.iterrows():
+                    if df[(df['POS']<row['end'])&(df['POS']>row['start'])&(df['#CHROM']==row['seqname'])].shape[0] >0:
+                        snp_in_rgn += 1
+                assert snp_in_rgn>0

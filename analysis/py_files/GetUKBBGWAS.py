@@ -18,8 +18,6 @@ parser.add_argument('--annot_data_dir', type=str, help='data directory where gtf
 parser.add_argument('--c', type=str, help='path to config file for postgres db',default='')
 args = parser.parse_args()
 
-import sys
-sys.path.append(f'{os.path.dirname(args.analysis_output_dir)}/py_files')
 from utilities import  make_manhattan_plot, get_gtf, get_gene_annot
 
 # Read the configuration from the .ini file (config.ini)

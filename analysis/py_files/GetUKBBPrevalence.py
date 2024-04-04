@@ -15,7 +15,6 @@ parser.add_argument('-c', required=True, type=str, help='Config file for databas
 args = parser.parse_args()
 ### READ INPUTS
 
-sys.path.append(f'{os.path.dirname(args.o)}/py_files')
 from utilities import  get_co_prev_df
 
 # Read the configuration from the .ini file (config.ini)
