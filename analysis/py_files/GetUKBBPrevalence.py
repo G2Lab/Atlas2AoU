@@ -1,13 +1,3 @@
-#! /gpfs/commons/home/anewbury/miniconda/envs/jupyter/bin/python3
-#SBATCH --job-name=atlas2aou_prev
-#SBATCH --partition=pe2
-#SBATCH --mail-type=ALL
-#SBATCH --mem=15G
-#SBATCH --cpus-per-task=8
-#SBATCH --time=80:00:00
-#SBATCH --output=atlas2aou_prev_output.txt
-#SBATCH --error=atlas2aou_prev_errors.txt
-
 # get UKBB prevalence estimates from postgres DB (for prevalence comparison with AoU)
 import pandas as pd
 from sqlalchemy import create_engine

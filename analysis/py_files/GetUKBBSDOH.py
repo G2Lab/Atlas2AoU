@@ -1,15 +1,3 @@
-#! /gpfs/commons/home/anewbury/miniconda/envs/jupyter/bin/python3
-#SBATCH --job-name=sdoh
-#SBATCH --partition=pe2
-#SBATCH --mail-type=ALL
-#SBATCH --mem=16G
-#SBATCH --cpus-per-task=4
-#SBATCH --time=80:00:00
-#SBATCH --output=sdoh_output.txt
-#SBATCH --error=sdoh_errors.txt
-
-
-
 import pandas as pd
 import numpy as np
 import configparser

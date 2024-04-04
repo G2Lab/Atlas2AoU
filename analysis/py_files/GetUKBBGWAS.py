@@ -1,13 +1,3 @@
-#! /gpfs/commons/home/anewbury/miniconda/envs/jupyter/bin/python3
-#SBATCH --job-name=atlas2aou_gwas
-#SBATCH --partition=pe2
-#SBATCH --mail-type=ALL
-#SBATCH --mem=64G
-#SBATCH --cpus-per-task=16
-#SBATCH --time=80:00:00
-#SBATCH --output=atlas2aou_gwas_output.txt
-#SBATCH --error=atlas2aou_gwas_errors.txt
-
 #  run GWAS using PLINK for UKBB
 
 import pandas as pd
