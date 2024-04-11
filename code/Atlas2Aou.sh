@@ -2,9 +2,9 @@
 # Convert Atlas query to be AoU compatible
 
 ### LOAD ENVIRONMENT
-module load R/4.2.3
-module load java/20.0.1
-source ~/miniconda/bin/activate ~/miniconda/envs/jupyter/
+#module load R/4.2.3
+#module load java/20.0.1
+#source ~/miniconda/bin/activate ~/miniconda/envs/jupyter/
 ### LOAD ENVIRONMENT
 
 ### DEFINE PARAMETERS
