@@ -15,8 +15,13 @@ where sql_path is the path to the sql file from Atlas downloaded in the base OHD
 Note that the python script created defines a function called create_df, so that within the AoU workbench, to acquire a dataframe with subject_id, cohort_start_date, and cohort_end_date (as in the [cohort table](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:cohort)), one must upload the .py file to workspace bucket and run:
 
 ```python
-import name_of_py_file.py
-df =name_of_py_file.create_df()
+import importlib
+def get_cohort(py_file):
+    module_name = py_file.replace('.py','')
+    module = importlib.import_module(module_name)
+    df = module.create_df()
+    return df
+df =get_cohort('name_of_py_file.py')
 ```
 
 ---
@@ -46,8 +51,13 @@ chmod +x code/Atlas2Aou.sh
 Where path_to_aou-atlas-phenotyping is the absolute path to this directory. Then, upload sample.py to an AoU workspace bucket and run:
 
 ```python
-import sample.py
-df = sample.create_df()
+import importlib
+def get_cohort(py_file):
+    module_name = py_file.replace('.py','')
+    module = importlib.import_module(module_name)
+    df = module.create_df()
+    return df
+df =get_cohort('sample.py')
 ```
 
 ---
