@@ -21,7 +21,7 @@ def get_cohort(py_file):
     module = importlib.import_module(module_name)
     df = module.create_df()
     return df
-df =get_cohort('name_of_py_file.py')
+df = get_cohort('name_of_py_file.py')
 ```
 
 ---
@@ -32,7 +32,7 @@ Note that Atlas2AoU.sh has been run successfully with the following dependencies
 
 - R 4.2.3
 - Java 20.0.1
-- Python3 packages: subprocess, argparse, sys, re
+- Python3 packages: subprocess, argparse, sys, re, importlib
 - R packages: rJava, SqlRender
 
 ---
@@ -57,7 +57,7 @@ def get_cohort(py_file):
     module = importlib.import_module(module_name)
     df = module.create_df()
     return df
-df =get_cohort('sample.py')
+df = get_cohort('sample.py')
 ```
 
 ---
