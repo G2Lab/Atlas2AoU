@@ -1,3 +1,14 @@
+#! /gpfs/commons/home/anewbury/miniconda/envs/jupyter/bin/python3
+#SBATCH --job-name=atlas2aougwas
+#SBATCH --nodes=1
+#SBATCH --mem=64G
+#SBATCH --cpus-per-task=8
+#SBATCH --time=120:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=anewbury@nygenome.org
+#SBATCH --output=output.txt
+#SBATCH --error=errors.txt
+#SBATCH --constraint=v3|v5
 #  run GWAS using PLINK for UKBB
 
 import pandas as pd
@@ -18,6 +29,8 @@ parser.add_argument('--annot_data_dir', type=str, help='data directory where gtf
 parser.add_argument('--c', type=str, help='path to config file for postgres db',default='')
 args = parser.parse_args()
 
+import sys
+sys.path.append(f'{os.path.dirname(args.analysis_output_dir)}/py_files')
 from utilities import  make_manhattan_plot, get_gtf, get_gene_annot
 
 # Read the configuration from the .ini file (config.ini)
@@ -32,56 +45,11 @@ database = config.get('postgres', 'database')
 engine = create_engine(f'postgresql://{username}:{password}@{host}/{database}')
 
 
-# merge files and run QC
-if not os.path.exists(f'{args.ukbb_data_dir}/Atlas2AoU/SNPS/FILE_QC_direct.bed'):
-    print("running qc")
-    result = subprocess.run(f'module load plink/1.90b6.24 && plink --merge-list {args.ukbb_data_dir}/Atlas2AoU/SNPS/merge.txt --out {args.ukbb_data_dir}/Atlas2AoU/SNPS/merged_direct', shell=True, capture_output=True, text=True, executable='/bin/bash')
-    print("stdout:", result.stdout)
-    print("stderr:", result.stderr)
-    # QC
-    result = subprocess.run(f'module load plink/1.90b6.24 && plink --bfile {args.ukbb_data_dir}/Atlas2AoU/SNPS/merged_direct --mind 0.05 --geno 0.05 --maf 0.05 --hwe 0.000001 --indep-pairwise 50 5 0.5 --make-bed --out {args.ukbb_data_dir}/Atlas2AoU/SNPS/FILE_QC_direct', shell=True, capture_output=True, text=True, executable='/bin/bash')
-    print('--------')
-    print("stdout:", result.stdout)
-    print("stderr:", result.stderr)
-# write to pheno and covar files for plink
-# covar file
-if not os.path.exists(f'{args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE'):
-    query = '''SELECT DISTINCT person_id AS IID, year_of_birth AS age, gender_concept_id AS gender FROM PERSON;'''
-    demo= pd.read_sql(query, con=engine)
-    demo.columns=['IID','Age','Sex']
-    demo.set_index('IID',inplace=True)
-    # read in pcs
-    pcs = pd.read_csv(f'{args.ukbb_data_dir}/principal_components.csv')
-    pcs = pcs.rename(columns={'eid':'IID','26201-0.0':'PC1','26201-0.1':'PC2','26201-0.2':'PC3','26201-0.3':'PC4'})
-    pcs.set_index('IID',inplace=True)
-    # remove those where the pcs are empty
-    pcs = pcs.dropna()
-    covar = demo.merge(pcs, left_index=True, right_index=True, how='inner')
-    # make sex binary - 0 for male and 1 for female
-    covar['Sex'] = covar['Sex'].replace({8507: 0, 8532: 1})
-    # Read the .fam file and create a list of dictionaries with FID and IID
-    data = []
-    with open(f'{args.ukbb_data_dir}/Atlas2AoU/SNPS/merged_direct.fam', 'r') as fam_file:
-        for line in fam_file:
-            fields = line.strip().split()
-            family_id = fields[0]
-            individual_id = fields[1]
-            batch = fields[5]
-            data.append({'FID': family_id, 'IID': individual_id, 'Batch':batch})
-    fam = pd.DataFrame(data)
-    fam = fam.astype(int)
-    fam.set_index('IID',inplace=True)
+# QC and COVARIATE_FILE creation from /gpfs/commons/groups/gursoy_lab/anewbury/gwas/code/SetupGWASScore.py
 
-    covar = covar.merge(fam, left_index=True, right_index=True, how='inner')
-    covar.reset_index(inplace=True)
-    covar.set_index('FID',inplace=True)
-    # ensure columns in correct order
-    covar=covar[['IID','Age','Sex','Batch','PC1','PC2','PC3','PC4']]
-    assert covar.isnull().values.any() == False
-    # write to covariate table
-    covar.to_csv(f'{args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE')
-else:
-    covar = pd.read_csv(f'{args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE',index_col=0)
+# write to pheno file plink
+# covar file
+covar = pd.read_csv(f'{args.ukbb_data_dir}/anewbury/COVARIATE_FILE',index_col=0)
 # pheno
 covar.reset_index(inplace=True)
 covar.set_index('IID',inplace=True)
@@ -110,12 +78,12 @@ os.makedirs(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}', exist_ok=Tr
 pheno.to_csv(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE')
 
 # submit job for gwas
-result = subprocess.run(f'module load plink && plink --bfile {args.ukbb_data_dir}/Atlas2AoU/SNPS/FILE_QC_direct --covar {args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE --covar-variance-standardize --pheno {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE --glm --out {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE --1 --no-pheno --memory 20000 --threads 10', shell=True, capture_output=True, text=True, executable='/bin/bash')
+result = subprocess.run(f'module unload plink && module load plink/2.0a5.10 && plink --bfile {args.ukbb_data_dir}/anewbury/SNPS/FINAL_QC --covar {args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE --covar-variance-standardize --pheno {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE --glm omit-ref --out {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE --1 --no-pheno', shell=True, capture_output=True, text=True, executable='/bin/bash')
 print("stdout:", result.stdout)
 print("stderr:", result.stderr)
 
 # once job is finished, create manhattan plot
-plink_results = pd.read_csv(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE.Phenotype.glm.logistic',sep='\t')
+plink_results = pd.read_csv(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE.Phenotype.glm.logistic.hybrid',sep='\t')
 make_manhattan_plot(plink_results,args.analysis_output_dir,args.cohortId,'ukbb')
 
 
