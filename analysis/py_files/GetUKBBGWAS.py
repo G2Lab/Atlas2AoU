@@ -78,7 +78,7 @@ os.makedirs(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}', exist_ok=Tr
 pheno.to_csv(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE')
 
 # submit job for gwas
-result = subprocess.run(f'module unload plink && module load plink/2.0a5.10 && plink --bfile {args.ukbb_data_dir}/anewbury/SNPS/FINAL_QC --covar {args.ukbb_data_dir}/Atlas2AoU/COVARIATE_FILE --covar-variance-standardize --pheno {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE --glm omit-ref --out {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE --1 --no-pheno', shell=True, capture_output=True, text=True, executable='/bin/bash')
+result = subprocess.run(f'module unload plink && module load plink/2.0a5.10 && plink --bfile {args.ukbb_data_dir}/anewbury/SNPS/FINAL_QC --covar {args.ukbb_data_dir}/anewbury/COVARIATE_FILE --covar-variance-standardize --pheno {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/PHENOTYPE_FILE --glm omit-ref --out {args.ukbb_data_dir}/Atlas2AoU/PHENO_{args.cohortId}/RESULTS_FILE --1 --no-pheno', shell=True, capture_output=True, text=True, executable='/bin/bash')
 print("stdout:", result.stdout)
 print("stderr:", result.stderr)
 

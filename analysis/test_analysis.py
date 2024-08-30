@@ -369,3 +369,7 @@ class TestGWAS(unittest.TestCase):
                     if df[(df['POS']<row['end'])&(df['POS']>row['start'])&(df['#CHROM']==row['seqname'])].shape[0] >0:
                         snp_in_rgn += 1
                 assert snp_in_rgn>0
+    def test_err_code(self):
+        for cohortId in [28,288,71]:
+            plink_results = pd.read_csv(f'{ukbb_data_dir}/Atlas2AoU/PHENO_{cohortId}/RESULTS_FILE.Phenotype.glm.logistic.hybrid',sep='\t')
+            assert plink_results['ERRCODE'].unique().tolist() == ['.']
