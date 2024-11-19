@@ -53,7 +53,7 @@ class TestUKBBPrevCoPrev(unittest.TestCase):
                 self.assertEqual(row['Count_ukbb'],'Diagnoses <= 20')
                 self.assertEqual(row['Prev_ukbb'],'Diagnoses <= 20')
             else:
-                self.assertEqual(int(row['Count_ukbb']),df.iloc[0]['count'])
+                self.assertEqual(int(row['Count_ukbb']),df.iloc[0]['count']), f"not working for row {row}"
                 self.assertEqual(float(row['Prev_ukbb']),int(row['Count_ukbb'])/int(row['N_ukbb']))
         # PII check - counts greater than 20
         # assert that no counts less than 20
@@ -194,7 +194,9 @@ class TestGWAS(unittest.TestCase):
         self.imputation_dir = f'{ukbb_data_dir}/ImputationV3'
         # Create the database engine using the configuration
         self.engine = create_engine(f'postgresql://{username}:{password}@{host}/{database}')
-        self.covar_iids = set(pd.read_csv(f'{self.Atlas2AoU_gwas_dir}/COVARIATE_FILE').IID.unique())
+        self.covar_iids = set(pd.read_csv(f'{ukbb_data_dir}/anewbury/COVARIATE_FILE').IID.unique())
+        # for checking qc
+        self.qc_data = pd.read_csv(f'{ukbb_data_dir}/anewbury/SNPS/qc_data.csv')
     
     # read in pheno file and make sure correct
     def test_pheno_file(self):
@@ -227,10 +229,10 @@ class TestGWAS(unittest.TestCase):
                         if line.startswith(f"  --{param}"):
                             self.assertEqual(line, f"  --{param} {param_value}\n")
         # test genotype qc - 
-        with open(f'{self.ukbb_data_dir}/anewbury/SNPS/pass_info_score_and_dup.txt') as f:
+        with open(f'{ukbb_data_dir}/anewbury/SNPS/pass_info_score_and_dup.txt') as f:
             passed_gqc = f.readlines()
             passed_gqc = [i.strip('\n') for i in passed_gqc]
-        file_qc_bim_df = pd.read_csv(f'{self.ukbb_data_dir}/anewbury/SNPS/FILE_QC.bim', sep='\t', header=None)
+        file_qc_bim_df = pd.read_csv(f'{ukbb_data_dir}/anewbury/SNPS/FILE_QC.bim', sep='\t', header=None)
         file_qc_bim_df.columns = ['#CHROM', 'ID', 'cM', 'POS', 'Allele1', 'Allele2']
         file_qc_bim_df['passed'] = file_qc_bim_df['ID'].isin(passed_gqc)
         # ensure no duplicate rsids
@@ -262,27 +264,27 @@ class TestGWAS(unittest.TestCase):
         # check numbers
         assert len(passed_gqc) == 3686405
         # test that passed_gqc are the only ones in FINAL_QC.bim
-        final_qc_bim_df = pd.read_csv(f'{self.ukbb_data_dir}/anewbury/SNPS/FINAL_QC.bim', sep='\t', header=None)
+        final_qc_bim_df = pd.read_csv(f'{ukbb_data_dir}/anewbury/SNPS/FINAL_QC.bim', sep='\t', header=None)
         final_qc_bim_df.columns = ['#CHROM', 'ID', 'cM', 'POS', 'Minor Allele', 'Major Allele']
         assert set(final_qc_bim_df.ID.unique()) == set(passed_gqc)
 
         # test sample qc - 
         # check that all samples in sample_out are: (1) not negative IIDs (not withdrawn) (2) not with F_MISS above 0.05 (not missing) (3) not in king matrix more than 10 times
-        passed_sqc = pd.read_csv(f'{self.ukbb_data_dir}/anewbury/SNPS/pass_sample_qc.txt', sep='\t', header = None)
+        passed_sqc = pd.read_csv(f'{ukbb_data_dir}/anewbury/SNPS/pass_sample_qc.txt', sep='\t', header = None)
         passed_sqc.columns = ['FID','IID']
         passed_sqc = passed_sqc.IID.unique().tolist()
         assert all([i>0 for i in passed_sqc]) # none withdrawn
-        miss = pd.read_csv(f'{self.ukbb_data_dir}/DirectAssayed/sample_qc/missing.imiss', sep='\s+')
+        miss = pd.read_csv(f'{ukbb_data_dir}/DirectAssayed/sample_qc/missing.imiss', sep='\s+')
         assert miss[(miss.IID.isin(passed_sqc))&(miss.F_MISS>0.05)].shape[0] == 0 # not missing
-        result = subprocess.run(['cmp', '-s', f'{self.ukbb_data_dir}/anewbury/SNPS/pass_sample_qc.txt', f'{self.ukbb_data_dir}/DirectAssayed/sample_qc/kingunrelated.txt'], capture_output=True)
+        result = subprocess.run(['cmp', '-s', f'{ukbb_data_dir}/anewbury/SNPS/pass_sample_qc.txt', f'{ukbb_data_dir}/DirectAssayed/sample_qc/kingunrelated.txt'], capture_output=True)
         assert result.returncode == 0
 
         # check that all other samples in FILE_QC are one of the following ^ and make sure qc data matches
         # read in file_qc_fam
-        fam_df = pd.read_csv(f'{self.ukbb_data_dir}/DirectAssayed/merged_direct.fam', sep='\t', header=None)
+        fam_df = pd.read_csv(f'{ukbb_data_dir}/DirectAssayed/merged_direct.fam', sep='\t', header=None)
         fam_df.columns = ['FID', 'IID', 'Father', 'Mother', 'Sex', 'Phenotype']
         not_passed_sqc = set(fam_df.IID.unique().tolist())-set(passed_sqc)
-        imputed_fam_df = pd.read_csv(f'{self.ukbb_data_dir}/anewbury/SNPS/FILE_QC.fam', sep='\s+', header=None)
+        imputed_fam_df = pd.read_csv(f'{ukbb_data_dir}/anewbury/SNPS/FILE_QC.fam', sep='\s+', header=None)
         imputed_fam_df.columns = ['FID', 'IID', 'Father', 'Mother', 'Sex', 'Phenotype']
         # remove not in imputed
         not_passed_sqc = [i for i in not_passed_sqc if i in imputed_fam_df.IID.unique()]
@@ -296,7 +298,7 @@ class TestGWAS(unittest.TestCase):
         assert self.qc_data[self.qc_data['qc type']=='miss']['# removed'].values[0] == init_len-len(not_passed_sqc)
         # remove high relatedness
         init_len = len(not_passed_sqc)
-        unrelated_toberemoved = pd.read_csv(f'{self.ukbb_data_dir}/DirectAssayed/sample_qc/kingunrelated_toberemoved.txt', sep='\t', header=None)
+        unrelated_toberemoved = pd.read_csv(f'{ukbb_data_dir}/DirectAssayed/sample_qc/kingunrelated_toberemoved.txt', sep='\t', header=None)
         not_passed_sqc = [i for i in not_passed_sqc if i not in unrelated_toberemoved[1].unique().tolist()]
         assert self.qc_data[self.qc_data['qc type']=='relatedness']['# removed'].values[0] == unrelated_toberemoved.shape[0]
         # should be empty
@@ -304,7 +306,7 @@ class TestGWAS(unittest.TestCase):
     
     def test_covar_file(self):
         # make sure that age, gender, FID and PCs are correct
-        covar = pd.read_csv(f'{self.ukbb_data_dir}/anewbury/COVARIATE_FILE')
+        covar = pd.read_csv(f'{ukbb_data_dir}/anewbury/COVARIATE_FILE')
         covar = covar.rename(columns={'Sex':'sex'})
         covar['yob'] = 2012-covar['Age']
         covar['sex'] = covar['sex'].apply(lambda x: 8507 if x == 0 else 8532)
@@ -314,7 +316,7 @@ class TestGWAS(unittest.TestCase):
         # batch 
         bileve_iids = covar[covar['Array']==0].index.unique()
         non_bileve_iids = covar[covar['Array']!=0].index.unique()
-        bileve_miss = pd.read_csv(f'{self.ukbb_data_dir}/DirectAssayed/sample_qc/bileve_check.smiss', sep='\s+')
+        bileve_miss = pd.read_csv(f'{ukbb_data_dir}/DirectAssayed/sample_qc/bileve_check.smiss', sep='\s+')
         assert set(bileve_iids).issubset(set(bileve_miss[bileve_miss['F_MISS']!=1].IID.unique()))
         assert set(non_bileve_iids).issubset(set(bileve_miss[bileve_miss['F_MISS']==1].IID.unique()))
 
@@ -326,7 +328,7 @@ class TestGWAS(unittest.TestCase):
         assert df.equals(covar[['sex','yob']])
 
         # check PCs
-        pcs = pd.read_csv(f'{self.ukbb_data_dir}/DirectAssayed/sample_qc/pcs.txt', sep='\t')
+        pcs = pd.read_csv(f'{ukbb_data_dir}/DirectAssayed/sample_qc/pcs.txt', sep='\t')
         pcs.set_index('IID',inplace=True)
         pcs.sort_index(inplace=True)
         pc_columns = [f'PC{i}' for i in range(1,21)]
@@ -334,7 +336,7 @@ class TestGWAS(unittest.TestCase):
         assert pcs.equals(covar[['FID']+pc_columns])
 
         # check that covar only includes final samples
-        passed_sqc = pd.read_csv(f'{self.ukbb_data_dir}/anewbury/SNPS/pass_sample_qc.txt', sep='\t', header=None)
+        passed_sqc = pd.read_csv(f'{ukbb_data_dir}/anewbury/SNPS/pass_sample_qc.txt', sep='\t', header=None)
         passed_sqc.columns=['FID','IID']
         passed_sqc = passed_sqc.IID.unique().tolist()
         assert set(passed_sqc) == set(pcs.index)
@@ -348,7 +350,7 @@ class TestGWAS(unittest.TestCase):
                 assert (f'Results written to {self.Atlas2AoU_gwas_dir}/PHENO_{cohortId}/RESULTS_FILE.Phenotype.glm.logistic.hybrid' in log_file)
 
                 # make sure correct snps written
-                assert f'{self.ukbb_data_dir}/SNPS/FINAL_QC.bim' in log_file
+                assert f'{ukbb_data_dir}/anewbury/SNPS/FINAL_QC.bim' in log_file
 
     def test_gwas_exons(self):
         gtf = get_gtf(gtf_annot_path)
@@ -369,7 +371,9 @@ class TestGWAS(unittest.TestCase):
                     if df[(df['POS']<row['end'])&(df['POS']>row['start'])&(df['#CHROM']==row['seqname'])].shape[0] >0:
                         snp_in_rgn += 1
                 assert snp_in_rgn>0
-    def test_err_code(self):
+    def test_err_code_and_firth(self):
         for cohortId in [28,288,71]:
             plink_results = pd.read_csv(f'{ukbb_data_dir}/Atlas2AoU/PHENO_{cohortId}/RESULTS_FILE.Phenotype.glm.logistic.hybrid',sep='\t')
             assert plink_results['ERRCODE'].unique().tolist() == ['.']
+            assert plink_results['FIRTH?'].unique().tolist() == ['N'] # check no firth fallback
+        
