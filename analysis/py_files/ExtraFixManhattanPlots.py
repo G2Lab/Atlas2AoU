@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import argparse 
 from plotnine import *
+from scipy.stats import beta
 
 # update manhattan plots by changing ylim
 
@@ -39,9 +40,39 @@ def make_manhattan_plot_ylim(plink_results, output_path, cohortId,db, ylim):
     )
     plot.save(f'{output_path}/Manhattan_Plot_c{cohortId}_{db}.jpeg', dpi=300)
 
+# make qq plot
+def make_qq_plot(plink_results, output_path, cohortId,db):
+    plink_results = plink_results[plink_results['TEST']=='ADD'].copy()
+    
+    expected_p_values = np.linspace(1/(len(plink_results['P'])+1), 1, len(plink_results['P']))
+    # generate ci
+    ci = 0.95
+    ci_lower = beta.ppf((1-ci)/2, range(1, len(plink_results['P']) + 1),range(len(plink_results['P']), 0, -1))
+    ci_upper = beta.ppf((1+ci)/2, range(1, len(plink_results['P']) + 1),range(len(plink_results['P']), 0, -1))
+
+    # generate ci
+    observed_p_values = np.sort(plink_results['P'])
+    q_q_data = pd.DataFrame({
+    'Expected': -np.log10(expected_p_values),
+    'CI lower': -np.log10(ci_lower),
+    'CI upper': -np.log10(ci_upper),
+    'Observed': -np.log10(observed_p_values)
+        })
+    qq_plot = (
+    ggplot(q_q_data, aes(x='Expected', y='Observed')) +
+    geom_point(color='black') +
+    geom_ribbon(aes(ymin='CI lower', ymax='CI upper'), fill='gray', alpha=0.2) +
+    geom_abline(slope = 1, intercept = 0, color = 'red') +
+    labs(x='Expected -log10(p-value)', y='Observed -log10(p-value)') +
+    theme(panel_grid=element_blank(),panel_border=element_blank(),legend_position=None, panel_background=element_rect(fill='white'),axis_text_x=element_text(size=6)) 
+
+    )
+    qq_plot.save(f'{output_path}/qq_Plot_c{cohortId}_{db}.jpeg', dpi=300)
+
 # once job is finished, create manhattan plot
 ylim_dict = {28:30, 288:225, 71:45}
 for cohortId in [28,288,71]:
     plink_results = pd.read_csv(f'{args.ukbb_data_dir}/Atlas2AoU/PHENO_{cohortId}/RESULTS_FILE.Phenotype.glm.logistic.hybrid',sep='\t')
     assert plink_results['ERRCODE'].unique().tolist() == ['.']
-    make_manhattan_plot_ylim(plink_results,args.analysis_output_dir,cohortId,'ukbb',ylim_dict[cohortId])
+    #make_manhattan_plot_ylim(plink_results,args.analysis_output_dir,cohortId,'ukbb',ylim_dict[cohortId])
+    make_qq_plot(plink_results,args.analysis_output_dir,cohortId,'ukbb')
