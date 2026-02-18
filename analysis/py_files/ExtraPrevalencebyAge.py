@@ -1,11 +1,4 @@
-#! /gpfs/commons/home/anewbury/miniconda/envs/jupyter/bin/python3
-#SBATCH --job-name=extra_prev
-#SBATCH --mail-type=ALL
-#SBATCH --mem=10G
-#SBATCH --cpus-per-task=16
-#SBATCH --time=24:00:00
-#SBATCH --output=/gpfs/commons/groups/gursoy_lab/anewbury/test/extra_prev_results.txt
-#SBATCH --error=/gpfs/commons/groups/gursoy_lab/anewbury/test/extra_prev_results.txt
+
 # get estimates of prevalence by age bin
 
 # get UKBB prevalence estimates from postgres DB (for prevalence comparison with AoU)
